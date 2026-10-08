@@ -17,10 +17,10 @@
 
     <meta
         name="description"
-        content="Arcade Study Group's - Memory Game dan Photo Roulette."
+        content="Study Group's - arsip foto, video, photobooth, arcade, dan wall satu geng."
     >
 
-    <title>Arcade | Study Group's</title>
+    <title>Study Group's</title>
 
     <!-- =====================================
          CSS
@@ -33,7 +33,7 @@
 
 </head>
 
-<body data-page="arcade">
+<body data-page="home">
 
     <!-- =====================================
          BACKGROUND
@@ -56,13 +56,19 @@
         <a
             class="logo"
             href="home.html"
-            aria-label="Study Group's, beranda"
+            aria-label="Study Group's Beranda"
         >
-            <span class="logo-burst">+</span>
+
+            <span class="logo-burst">
+                ✹
+            </span>
 
             Study Group's<span class="logo-punct">!</span>
 
-            <small>eaaaaaaa</small>
+            <small>
+                eaaaa
+            </small>
+
         </a>
 
 
@@ -75,7 +81,8 @@
 
             <a
                 href="home.html"
-                class="navlink"
+                class="navlink active"
+                aria-current="page"
             >
                 <span class="nav-icon">⌂</span>
                 <span>START</span>
@@ -99,8 +106,7 @@
 
             <a
                 href="arcade.html"
-                class="navlink active"
-                aria-current="page"
+                class="navlink"
             >
                 <span class="nav-icon">✳</span>
                 <span>ARCADE</span>
@@ -136,31 +142,39 @@
 
     <main id="main">
 
-        <section class="arcade-shell">
+        <div class="home-scene">
 
 
             <!-- =================================
-                 ARCADE HEADER
+                 RUNNING TEXT
             ================================= -->
 
-            <div class="arcade-header">
+            <div
+                class="ticker"
+                aria-hidden="true"
+            >
 
-                <div>
+                <div class="ticker-track">
 
-                    <div class="eyebrow">
-                        INSERT COIN? NGGAK USAH.
-                    </div>
+                    NABIL PUTRA AND CECEP ✳
 
-                    <h1>
-                        PLAY<span>GROUND</span><i>★</i>
-                    </h1>
+                    NAYA MUNIS ✳
 
-                </div>
+                    KEYZIA ✳
 
+                    FELIX ✳
 
-                <div class="arcade-score-top">
+                    ROBBBBYYYYYY LOPE NAI ✳
 
-                    ✳ <span>NGGAK ADA HADIAH</span>
+                    PATUR SANG GELEDEK ✳
+
+                    REPI ✳
+
+                    KIIIII ✳
+
+                    MUEL ✳
+
+                    ILHAM ATAU ILMU HITAM ✳
 
                 </div>
 
@@ -168,188 +182,295 @@
 
 
             <!-- =================================
-                 ARCADE GAMES
+                 HERO SECTION
             ================================= -->
 
-            <div class="arcade-layout">
+            <section class="home-grid">
 
 
-                <!-- =============================
-                     GAME 01 - MEMORY GAME
-                ============================= -->
+                <!-- HERO TEXT -->
 
-                <article class="arcade-panel memory-panel">
+                <div class="home-copy">
 
 
-                    <!-- GAME HEADER -->
+                    <!-- SMALL LABEL -->
 
-                    <div class="game-head">
-
-                        <div>
-
-                            <span>GAME_01</span>
-
-                            <h2>coba aja</h2>
-
-                        </div>
-
-
-                        <!-- GAME SCORE -->
-
-                        <div class="game-score">
-
-                            <strong id="memoryMoves">
-                                0
-                            </strong>
-
-                            <small>
-                                MOVES
-                            </small>
-
-                            <strong id="memoryTime">
-                                00:00
-                            </strong>
-
-                            <small>
-                                TIME
-                            </small>
-
-                        </div>
-
+                    <div class="mini-pill wobble">
+                        ↗ gua gabut doang WKWKWKWKWWKK
                     </div>
 
 
-                    <!-- MEMORY CARDS -->
+                    <!-- MAIN TITLE -->
 
-                    <!--
-                        Kartu dibuat otomatis
-                        oleh initMemory()
-                        di aset/js/app.js.
-                    -->
+                    <h1 class="hero-title">
 
-                    <div
-                        id="memoryGrid"
-                        class="memory-grid"
-                        aria-label="Game cocokkan kartu foto"
-                    ></div>
-
-
-                    <!-- GAME FOOTER -->
-
-                    <div class="game-bottom">
-
-                        <span id="memoryMessage">
-                            Cari 6 pasangan. Jangan ngasal.
+                        <span>
+                            foto foto
                         </span>
 
-                        <button
-                            type="button"
-                            id="memoryReset"
-                        >
-                            ↻ RESET
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <!-- =============================
-                     GAME 02 - PHOTO ROULETTE
-                ============================= -->
-
-                <article class="arcade-panel roulette-panel">
-
-
-                    <!-- GAME HEADER -->
-
-                    <div class="game-head">
-
-                        <div>
-
-                            <span>GAME_02</span>
-
-                            <h2>siapa nyakkkk</h2>
-
-                        </div>
-
-
-                        <span class="tiny-sticker">
-                            RANDOM
-                            <br>
-                            IZER
+                        <span class="title-invert">
+                            Study Group's
                         </span>
 
-                    </div>
+                        <span class="title-outline">
+
+                            mas cecep
+
+                            <span class="asterisk">
+                                +
+                            </span>
+
+                        </span>
+
+                    </h1>
 
 
-                    <!-- ROULETTE PHOTO -->
+                    <!-- HERO BUTTON -->
 
-                    <div class="roulette-window">
+                    <div class="home-bottomcopy">
 
-
-                        <!-- BACKGROUND -->
-
-                        <div class="roulette-halo"></div>
-
-
-                        <!-- PHOTO -->
-
-                        <div
-                            class="roulette-photo"
-                            id="roulettePhoto"
+                        <a
+                            class="big-btn btn-ink"
+                            href="album.html"
                         >
 
-                            <img
-                                src="aset/image/foto-02.jpg"
-                                alt="Foto acak untuk roulette"
-                                id="rouletteImg"
-                            >
+                            BUKA FOTO
 
-                        </div>
+                            <span>
+                                ↗
+                            </span>
 
-
-                        <!-- DECORATION -->
-
-                        <div class="roulette-shine">
-                            ✦
-                        </div>
+                        </a>
 
                     </div>
 
 
-                    <!-- ROULETTE RESULT -->
+                    <!-- HERO STAMP -->
 
-                    <p
-                        id="rouletteName"
-                        class="roulette-result"
-                    >
-                        KLIK ↓
-                    </p>
+                    <div class="hero-stamp">
+
+                        <b>
+                            ↗
+                        </b>
+
+                    </div>
+
+                </div>
 
 
-                    <!-- SPIN BUTTON -->
+                <!-- =================================
+                     PHOTO STACK
+                ================================= -->
+
+                <div
+                    class="hero-stage"
+                    id="heroStage"
+                    aria-label="Foto acak geng"
+                >
+
+
+                    <!-- SCRIBBLE DECORATIONS -->
+
+                    <div class="scribble scribble-1">
+                        ↗
+                    </div>
+
+                    <div class="scribble scribble-2">
+
+                        #NO
+
+                        <br>
+
+                        CONTEXT
+
+                    </div>
+
+
+                    <!-- LEFT PHOTO -->
 
                     <button
                         type="button"
-                        class="roulette-button"
-                        id="rouletteSpin"
+                        class="stack-card card-left"
+                        data-photo="0"
+                        aria-label="Buka foto 1"
                     >
-                        ↻ PUTAR LAGI
+
+                        <img
+                            src="aset/image/foto-01.jpg"
+                            alt="Foto geng 1"
+                        >
+
                     </button>
 
 
-                    <!-- ROULETTE FOOTER -->
+                    <!-- RIGHT PHOTO -->
 
-                    <div class="roulette-bottom">
-                        totally scientific. trust.
-                    </div>
+                    <button
+                        type="button"
+                        class="stack-card card-right"
+                        data-photo="7"
+                        aria-label="Buka foto 8"
+                    >
 
-                </article>
+                        <img
+                            src="aset/image/foto-08.jpg"
+                            alt="Foto geng 8"
+                        >
 
-            </div>
+                    </button>
 
-        </section>
+
+                    <!-- CENTER PHOTO -->
+
+                    <button
+                        type="button"
+                        class="stack-card card-center"
+                        data-photo="1"
+                        aria-label="Buka foto 2"
+                    >
+
+                        <span class="tape"></span>
+
+                        <img
+                            src="aset/image/foto-02.jpg"
+                            alt="Foto geng 2"
+                        >
+
+                        <span class="card-scrawl">
+
+                            geng random
+
+                            <b>
+                                ♥
+                            </b>
+
+                        </span>
+
+                    </button>
+
+
+                    <!-- SHUFFLE BUTTON -->
+
+                    <button
+                        type="button"
+                        class="shuffle-stack"
+                        id="shuffleStack"
+                    >
+                        ↻ KOCOK FOTO
+                    </button>
+
+
+                    <!-- DECORATIVE STAR -->
+
+                    <span class="stage-star">
+                        ✷
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 PAGE NAVIGATION CARDS
+            ================================= -->
+
+            <section
+                class="home-portal"
+                aria-label="Pilih halaman"
+            >
+
+
+                <!-- ALBUM -->
+
+                <a
+                    class="portal portal-album"
+                    href="album.html"
+                >
+
+                    <span class="portal-icon">
+                        ▦
+                    </span>
+
+                    <span>
+                        ALBUM
+                    </span>
+
+                    <b>
+                        ↗
+                    </b>
+
+                </a>
+
+
+                <!-- PHOTOBOOTH -->
+
+                <a
+                    class="portal portal-booth"
+                    href="booth.html"
+                >
+
+                    <span class="portal-icon">
+                        ◉
+                    </span>
+
+                    <span>
+                        PHOTOBOOTH
+                    </span>
+
+                    <b>
+                        ↗
+                    </b>
+
+                </a>
+
+
+                <!-- ARCADE -->
+
+                <a
+                    class="portal portal-arcade"
+                    href="arcade.html"
+                >
+
+                    <span class="portal-icon">
+                        ✳
+                    </span>
+
+                    <span>
+                        ARCADE
+                    </span>
+
+                    <b>
+                        ↗
+                    </b>
+
+                </a>
+
+
+                <!-- WALL -->
+
+                <a
+                    class="portal portal-wall"
+                    href="wall.html"
+                >
+
+                    <span class="portal-icon">
+                        ✎
+                    </span>
+
+                    <span>
+                        WALL
+                    </span>
+
+                    <b>
+                        ↗
+                    </b>
+
+                </a>
+
+            </section>
+
+        </div>
 
     </main>
 
@@ -360,12 +481,13 @@
 
     <nav
         class="mobile-nav"
-        aria-label="Menu bawah"
+        aria-label="Navigasi mobile"
     >
 
         <a
             href="home.html"
-            class="navlink"
+            class="navlink active"
+            aria-current="page"
         >
             <span class="nav-icon">⌂</span>
             <span>START</span>
@@ -389,8 +511,7 @@
 
         <a
             href="arcade.html"
-            class="navlink active"
-            aria-current="page"
+            class="navlink"
         >
             <span class="nav-icon">✳</span>
             <span>ARCADE</span>
@@ -409,13 +530,15 @@
 
     <!-- =====================================
          MUSIC PLAYER
-         DITAMBAHKAN
+
+         HARUS DI LUAR MAIN
     ===================================== -->
 
     <div
         class="music-player"
         id="musicPlayer"
     >
+
 
         <!-- AUDIO -->
 
@@ -452,6 +575,7 @@
 
         <div class="music-controls">
 
+
             <!-- PREVIOUS -->
 
             <button
@@ -481,8 +605,8 @@
             <button
                 type="button"
                 id="musicNext"
-                aria-label="Lagu selanjutnya"
-                title="Lagu selanjutnya"
+                aria-label="Lagu berikutnya"
+                title="Lagu berikutnya"
             >
                 ⏭
             </button>
@@ -505,7 +629,7 @@
 
 
     <!-- =====================================
-         PHOTO AND VIDEO VIEWER
+         SHARED PHOTO + VIDEO VIEWER
     ===================================== -->
 
     <div
@@ -514,7 +638,8 @@
         aria-hidden="true"
     >
 
-        <!-- DARK BACKDROP -->
+
+        <!-- BACKDROP -->
 
         <div
             class="viewer-backdrop"
@@ -522,13 +647,13 @@
         ></div>
 
 
-        <!-- VIEWER CONTAINER -->
+        <!-- VIEWER WINDOW -->
 
         <div
             class="viewer-shell"
             role="dialog"
             aria-modal="true"
-            aria-label="Lihat media"
+            aria-label="Lihat foto dan video"
         >
 
 
@@ -536,10 +661,10 @@
 
             <div class="viewer-top">
 
-                <span id="viewerTag"></span>
+                <span id="viewerTag">
+                    FOTO 01/143
+                </span>
 
-
-                <!-- VIEWER ACTIONS -->
 
                 <div class="viewer-actions">
 
@@ -549,7 +674,7 @@
                     <button
                         type="button"
                         id="viewerHeart"
-                        aria-label="Tandai favorit"
+                        aria-label="Tambah favorit"
                     >
                         ♡
                     </button>
@@ -561,7 +686,7 @@
                         id="viewerDownload"
                         href="#"
                         download
-                        aria-label="Unduh media"
+                        aria-label="Download media"
                     >
                         ↓
                     </a>
@@ -603,7 +728,7 @@
 
                 <img
                     id="viewerImage"
-                    alt="Foto Study Group's"
+                    alt="Foto geng"
                     hidden
                 >
 
@@ -639,7 +764,9 @@
 
                 <span id="viewerLabel"></span>
 
-                <span>← → untuk geser</span>
+                <span>
+                    ← → untuk geser
+                </span>
 
             </div>
 

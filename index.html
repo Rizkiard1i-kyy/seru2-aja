@@ -7,818 +7,389 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover"
+        content="width=device-width, initial-scale=1.0"
     >
 
     <meta
         name="theme-color"
-        content="#f6f0e7"
+        content="#161616"
     >
 
     <meta
         name="description"
-        content="BISING! CLUB — arsip foto, video, photobooth, arcade, dan wall satu geng."
+        content="Halaman kejutan Study Group's."
     >
 
     <title>Study Group's</title>
 
     <!-- =====================================
-         CSS
+         CSS INTRO
     ===================================== -->
 
     <link
         rel="stylesheet"
-        href="aset/css/style.css"
+        href="aset/css/intro.css"
     >
-
-    <!-- =====================================
-         JAVASCRIPT
-
-         URUTAN JANGAN DIUBAH
-    ===================================== -->
-
-    <script
-        src="aset/js/data.js"
-        defer
-    ></script>
-
-    <script
-        src="aset/js/app.js"
-        defer
-    ></script>
-
-    <script
-        src="aset/js/spa.js"
-        defer
-    ></script>
 
 </head>
 
-<body data-page="home">
+<body>
 
     <!-- =====================================
-         BACKGROUND NOISE
+         BACKGROUND
     ===================================== -->
 
     <div
-        class="noise"
+        class="intro-noise"
         aria-hidden="true"
     ></div>
 
+    <div
+        class="intro-decoration"
+        aria-hidden="true"
+    >
+
+        <span class="decoration-star star-one">
+            ✳
+        </span>
+
+        <span class="decoration-star star-two">
+            ✷
+        </span>
+
+        <span class="decoration-star star-three">
+            ✦
+        </span>
+
+        <span class="decoration-circle circle-one"></span>
+
+        <span class="decoration-circle circle-two"></span>
+
+    </div>
+
+
     <!-- =====================================
-         HEADER / NAVBAR
+         MAIN INTRO
     ===================================== -->
 
-    <header class="topbar">
+    <main class="intro-container">
 
-        <!-- LOGO -->
+        <!-- TOP LABEL -->
 
-        <a
-            class="logo"
-            href="index.html"
-            aria-label="BISING! CLUB Beranda"
-        >
+        <div class="intro-top-label">
 
-            <span class="logo-burst">
-                ✹
+            <span class="status-dot"></span>
+
+            TOP SECRET ARCHIVE
+
+            <span class="intro-version">
+                / 2026
             </span>
-
-            Study Group's<span class="logo-punct">!</span>
-
-            <small>
-                eaaaa
-            </small>
-
-        </a>
-
-        <!-- DESKTOP NAVIGATION -->
-
-        <nav
-            class="topnav"
-            aria-label="Menu utama"
-        >
-
-            <a
-                href="index.html"
-                class="navlink active"
-                aria-current="page"
-            >
-                <span class="nav-icon">
-                    ⌂
-                </span>
-
-                <span>
-                    START
-                </span>
-            </a>
-
-            <a
-                href="album.html"
-                class="navlink"
-            >
-                <span class="nav-icon">
-                    ▦
-                </span>
-
-                <span>
-                    ALBUM
-                </span>
-            </a>
-
-            <a
-                href="booth.html"
-                class="navlink"
-            >
-                <span class="nav-icon">
-                    ▣
-                </span>
-
-                <span>
-                    BOOTH
-                </span>
-            </a>
-
-            <a
-                href="arcade.html"
-                class="navlink"
-            >
-                <span class="nav-icon">
-                    ✳
-                </span>
-
-                <span>
-                    ARCADE
-                </span>
-            </a>
-
-            <a
-                href="wall.html"
-                class="navlink"
-            >
-                <span class="nav-icon">
-                    ✎
-                </span>
-
-                <span>
-                    WALL
-                </span>
-            </a>
-
-        </nav>
-
-        <!-- LIVE INDICATOR -->
-
-        <div class="live-tag">
-
-            <span class="live-dot"></span>
-
-            STILL LOUD
 
         </div>
 
-    </header>
 
-    <!-- =====================================
-         MAIN CONTENT
+        <!-- =================================
+             LOADING SCREEN
+        ================================= -->
 
-         SPA HANYA MENGGANTI BAGIAN MAIN.
-         NAVBAR DAN MUSIC PLAYER TETAP ADA.
-    ===================================== -->
+        <section
+            class="intro-screen loading-screen active"
+            id="loadingScreen"
+            aria-label="Memuat kejutan"
+        >
 
-    <main id="main">
+            <div class="loading-sticker"></div>
 
-        <div class="home-scene">
+            <div class="loading-content">
 
-            <!-- =================================
-                 RUNNING TEXT
-            ================================= -->
+                <span class="loading-small-text">
+                    WAIT A SECOND...
+                </span>
 
-            <div
-                class="ticker"
-                aria-hidden="true"
-            >
 
-                <div class="ticker-track">
+                <!-- LOADING TITLE -->
 
-                    NABIL PUTRA AND CECEP ✳
-                    NAYA MUNIS ✳
-                    KEYZIA ✳
-                    FELIX ✳
-                    ROBBBBYYYYYY LOPE NAI ✳
-                    PATUR SANG GELEDEK ✳
-                    REPI ✳
-                    KIIIII ✳
-                    MUEL ✳
-                    ILHAM ATAU ILMU HITAM ✳
+                <h1 class="loading-title">
+
+                    SABAR
+
+                    <span>
+                        MASSS
+                    </span>
+
+                </h1>
+
+
+                <!-- LOADING MESSAGE -->
+
+                <p
+                    class="loading-message"
+                    id="loadingMessage"
+                    aria-live="polite"
+                >
+                    hmmmmm apa yahh
+                </p>
+
+
+                <!-- PROGRESS BAR -->
+
+                <div class="progress-wrapper">
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill"
+                            id="progressFill"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="progress-information">
+
+                        <span>
+                            LOADING coooo
+                        </span>
+
+                        <span id="progressNumber">
+                            0%
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
-            <!-- =================================
-                 HERO SECTION
-            ================================= -->
 
-            <section class="home-grid">
+            <!-- LOADING FOOTER -->
 
-                <!-- HERO TEXT -->
+            <div class="loading-bottom">
 
-                <div class="home-copy">
+                <span>
+                    TAU SABAR GA YAH ↗
+                </span>
 
-                    <!-- SMALL LABEL -->
+                <span>
+                    B! CLUB
+                </span>
 
-                    <div class="mini-pill wobble">
+            </div>
 
-                        ↗ gua gabut doang WKWKWKWKWWKK
+        </section>
 
-                    </div>
 
-                    <!-- MAIN TITLE -->
+        <!-- =================================
+             REVEAL SCREEN
+        ================================= -->
 
-                    <h1 class="hero-title">
+        <section
+            class="intro-screen reveal-screen"
+            id="revealScreen"
+            aria-label="Kejutan Study Group's"
+            hidden
+        >
 
-                        <span>
-                            foto foto
-                        </span>
+            <!-- REVEAL STICKER -->
 
-                        <span class="title-invert">
-                            Study Group's
-                        </span>
+            <div class="reveal-sticker">
+                ✳ DUARRRRRRR ✳
+            </div>
 
-                        <span class="title-outline">
 
-                            mas cecep
+            <div class="reveal-content">
 
-                            <span class="asterisk">
-                                +
-                            </span>
+                <p class="reveal-eyebrow"></p>
 
-                        </span>
 
-                    </h1>
+                <!-- MAIN TITLE -->
 
-                    <!-- HERO DESCRIPTION -->
+                <h1 class="reveal-title">
 
-                    <div class="home-bottomcopy">
+                    <span class="reveal-line">
+                        Study
+                    </span>
 
-        
+                    <span class="reveal-line reveal-accent">
+                        ! Group's
+                    </span>
 
-                        <a
-                            class="big-btn btn-ink"
-                            href="album.html"
-                        >
+                </h1>
 
-                            BUKA FOTO
 
-                            <span>
-                                ↗
-                            </span>
+                <!-- SUBTITLE -->
 
-                        </a>
+                <div class="reveal-subtitle">
 
-                    </div>
+                    <span>✦</span>
 
-                    <!-- HERO STAMP -->
+                    hmmm apa yah isinya
 
-                    <div class="hero-stamp">
-
-    
-
-                        <b>
-                            ↗
-                        </b>
-
-                    </div>
+                    <span>✦</span>
 
                 </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <p class="reveal-description">
+                    gua ggabut doang wkwk smoga senng
+                </p>
+
 
                 <!-- =================================
-                     PHOTO STACK
+                     PILIHAN MUSIK
                 ================================= -->
 
-                <div
-                    class="hero-stage"
-                    id="heroStage"
-                    aria-label="Foto acak geng"
-                >
+                <div class="intro-music-choice">
 
-                    <!-- SCRIBBLE DECORATIONS -->
+                    <p class="music-question">
+                        MAU PAKE LAGU?
+                    </p>
 
-                    <div class="scribble scribble-1">
-                        ↗
+
+                    <div
+                        class="intro-music-buttons"
+                        role="group"
+                        aria-label="Pilihan musik"
+                    >
+
+                        <!-- MUSIC ON -->
+
+                        <button
+                            type="button"
+                            id="introMusicOn"
+                            class="intro-music-btn selected"
+                            aria-pressed="true"
+                        >
+
+                            <span>♫</span>
+
+                            PAKAI LAGU
+
+                        </button>
+
+
+                        <!-- MUSIC OFF -->
+
+                        <button
+                            type="button"
+                            id="introMusicOff"
+                            class="intro-music-btn"
+                            aria-pressed="false"
+                        >
+
+                            <span>✕</span>
+
+                            TANPA LAGU
+
+                        </button>
+
                     </div>
 
-                    <div class="scribble scribble-2">
 
-                        #NO
-                        <br>
-                        CONTEXT
+                    <!-- MUSIC STATUS -->
 
-                    </div>
-
-                    <!-- LEFT PHOTO -->
-
-                    <button
-                        type="button"
-                        class="stack-card card-left"
-                        data-photo="0"
-                        aria-label="Buka foto 1"
+                    <p
+                        class="music-choice-status"
+                        id="musicChoiceStatus"
+                        aria-live="polite"
                     >
-
-                        <img
-                            src="aset/image/foto-01.jpg"
-                            alt="Foto geng 1"
-                        >
-
-                    </button>
-
-                    <!-- RIGHT PHOTO -->
-
-                    <button
-                        type="button"
-                        class="stack-card card-right"
-                        data-photo="7"
-                        aria-label="Buka foto 8"
-                    >
-
-                        <img
-                            src="aset/image/foto-08.jpg"
-                            alt="Foto geng 8"
-                        >
-
-                    </button>
-
-                    <!-- CENTER PHOTO -->
-
-                    <button
-                        type="button"
-                        class="stack-card card-center"
-                        data-photo="1"
-                        aria-label="Buka foto 2"
-                    >
-
-                        <span class="tape"></span>
-
-                        <img
-                            src="aset/image/foto-02.jpg"
-                            alt="Foto geng 2"
-                        >
-
-                        <span class="card-scrawl">
-
-                            geng random
-
-                            <b>
-                                ♥
-                            </b>
-
-                        </span>
-
-                    </button>
-
-                    <!-- SHUFFLE BUTTON -->
-
-                    <button
-                        type="button"
-                        class="shuffle-stack"
-                        id="shuffleStack"
-                    >
-
-                        ↻ KOCOK FOTO
-
-                    </button>
-
-                    <!-- DECORATIVE STAR -->
-
-                    <span class="stage-star">
-                        ✷
-                    </span>
+                        ♫ KLIK PAKAI LAGU UNTUK PUTAR
+                    </p>
 
                 </div>
 
-            </section>
 
-            <!-- =================================
-                 PAGE NAVIGATION CARDS
-            ================================= -->
+                <!-- =================================
+                     ENTER BUTTON
+                ================================= -->
 
-            <section
-                class="home-portal"
-                aria-label="Pilih halaman"
-            >
-
-                <!-- ALBUM -->
-
-                <a
-                    class="portal portal-album"
-                    href="album.html"
+                <button
+                    type="button"
+                    class="enter-button"
+                    id="enterButton"
                 >
 
-                    <span class="portal-icon">
-                        ▦
-                    </span>
+                    apa yahhh
 
                     <span>
-                        ALBUM
-                    </span>
-
-                    <b>
                         ↗
-                    </b>
-
-                </a>
-
-                <!-- PHOTOBOOTH -->
-
-                <a
-                    class="portal portal-booth"
-                    href="booth.html"
-                >
-
-                    <span class="portal-icon">
-                        ◉
                     </span>
 
-                    <span>
-                        PHOTOBOOTH
-                    </span>
+                </button>
 
-                    <b>
-                        ↗
-                    </b>
 
-                </a>
+                <p class="enter-hint"></p>
 
-                <!-- ARCADE -->
+            </div>
 
-                <a
-                    class="portal portal-arcade"
-                    href="arcade.html"
-                >
 
-                    <span class="portal-icon">
-                        ✳
-                    </span>
+            <div class="reveal-corner-label">
+                100% NO CONTEXT
+            </div>
 
-                    <span>
-                        ARCADE
-                    </span>
+        </section>
 
-                    <b>
-                        ↗
-                    </b>
 
-                </a>
+        <!-- =================================
+             TRANSITION SCREEN
+        ================================= -->
 
-                <!-- WALL -->
+        <div
+            class="intro-transition"
+            id="introTransition"
+            aria-hidden="true"
+        >
 
-                <a
-                    class="portal portal-wall"
-                    href="wall.html"
-                >
-
-                    <span class="portal-icon">
-                        ✎
-                    </span>
-
-                    <span>
-                        WALL
-                    </span>
-
-                    <b>
-                        ↗
-                    </b>
-
-                </a>
-
-            </section>
+            <span>
+                DUARRRRR ✳
+            </span>
 
         </div>
+
+
+        <!-- =================================
+             CONFETTI
+        ================================= -->
+
+        <div
+            class="intro-confetti"
+            id="introConfetti"
+            aria-hidden="true"
+        ></div>
 
     </main>
 
-    <!-- =====================================
-         MOBILE NAVIGATION
-    ===================================== -->
-
-    <nav
-        class="mobile-nav"
-        aria-label="Navigasi mobile"
-    >
-
-        <a
-            href="index.html"
-            class="navlink active"
-            aria-current="page"
-        >
-
-            <span class="nav-icon">
-                ⌂
-            </span>
-
-            <span>
-                START
-            </span>
-
-        </a>
-
-        <a
-            href="album.html"
-            class="navlink"
-        >
-
-            <span class="nav-icon">
-                ▦
-            </span>
-
-            <span>
-                ALBUM
-            </span>
-
-        </a>
-
-        <a
-            href="booth.html"
-            class="navlink"
-        >
-
-            <span class="nav-icon">
-                ▣
-            </span>
-
-            <span>
-                BOOTH
-            </span>
-
-        </a>
-
-        <a
-            href="arcade.html"
-            class="navlink"
-        >
-
-            <span class="nav-icon">
-                ✳
-            </span>
-
-            <span>
-                ARCADE
-            </span>
-
-        </a>
-
-        <a
-            href="wall.html"
-            class="navlink"
-        >
-
-            <span class="nav-icon">
-                ✎
-            </span>
-
-            <span>
-                WALL
-            </span>
-
-        </a>
-
-    </nav>
 
     <!-- =====================================
-         TOAST NOTIFICATION
+         FOOTER
     ===================================== -->
 
-    <div
-        id="toast"
-        class="toast"
-        role="status"
-        aria-live="polite"
-    ></div>
+    <footer class="intro-footer">
+
+        <span>
+            © BISING! CLUB
+        </span>
+
+        <span>
+            MADE FOR THE CHAOS
+        </span>
+
+    </footer>
+
 
     <!-- =====================================
-         SHARED PHOTO & VIDEO VIEWER
+         JAVASCRIPT INTRO
 
-         TETAP DI LUAR MAIN SUPAYA
-         TIDAK IKUT TERHAPUS SAAT SPA.
+         KHUSUS INTRO.JS
     ===================================== -->
 
-    <div
-        id="photoViewer"
-        class="viewer"
-        aria-hidden="true"
-    >
-
-        <!-- BACKDROP -->
-
-        <div
-            class="viewer-backdrop"
-            data-close="viewer"
-        ></div>
-
-        <!-- VIEWER WINDOW -->
-
-        <div
-            class="viewer-shell"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Lihat foto dan video"
-        >
-
-            <!-- VIEWER TOP -->
-
-            <div class="viewer-top">
-
-                <span id="viewerTag">
-                    FOTO 01/143
-                </span>
-
-                <div class="viewer-actions">
-
-                    <!-- FAVORITE -->
-
-                    <button
-                        type="button"
-                        id="viewerHeart"
-                        aria-label="Tambah favorit"
-                    >
-                        ♡
-                    </button>
-
-                    <!-- DOWNLOAD -->
-
-                    <a
-                        id="viewerDownload"
-                        href="#"
-                        download
-                        aria-label="Download media"
-                    >
-                        ↓
-                    </a>
-
-                    <!-- CLOSE -->
-
-                    <button
-                        type="button"
-                        data-close="viewer"
-                        aria-label="Tutup viewer"
-                    >
-                        ✕
-                    </button>
-
-                </div>
-
-            </div>
-
-            <!-- VIEWER CONTENT -->
-
-            <div class="viewer-photo">
-
-                <!-- PREVIOUS -->
-
-                <button
-                    type="button"
-                    class="viewer-arrow prev"
-                    id="viewerPrev"
-                    aria-label="Media sebelumnya"
-                >
-                    ‹
-                </button>
-
-                <!-- PHOTO -->
-
-                <img
-                    id="viewerImage"
-                    alt="Foto geng"
-                >
-
-                <!-- VIDEO -->
-
-                <video
-                    id="viewerVideo"
-                    controls
-                    playsinline
-                    preload="metadata"
-                    hidden
-                ></video>
-
-                <!-- NEXT -->
-
-                <button
-                    type="button"
-                    class="viewer-arrow next"
-                    id="viewerNext"
-                    aria-label="Media berikutnya"
-                >
-                    ›
-                </button>
-
-            </div>
-
-            <!-- VIEWER BOTTOM -->
-
-            <div class="viewer-bottom">
-
-                <span id="viewerLabel"></span>
-
-                <span>
-                    ← → untuk geser
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- =====================================
-         BACKGROUND MUSIC PLAYER
-
-         JANGAN TARUH DI DALAM MAIN.
-         SUPAYA MUSIK TIDAK RESTART
-         SAAT BERPINDAH HALAMAN.
-    ===================================== -->
-
-    <div
-        class="music-player"
-        id="musicPlayer"
-    >
-
-        <!-- AUDIO PLAYER -->
-
-        <audio
-            id="backgroundMusic"
-            preload="metadata"
-        ></audio>
-
-        <!-- MUSIC INFORMATION -->
-
-        <div class="music-info">
-
-            <span class="music-icon">
-                ♫
-            </span>
-
-            <div class="music-details">
-
-                <strong id="musicTitle">
-                    LAGU GUA
-                </strong>
-
-                <small id="musicStatus">
-                    MUSIC OFF
-                </small>
-
-            </div>
-
-        </div>
-
-        <!-- MUSIC CONTROLS -->
-
-        <div class="music-controls">
-
-            <!-- PREVIOUS -->
-
-            <button
-                type="button"
-                id="musicPrev"
-                aria-label="Lagu sebelumnya"
-            >
-                ⏮
-            </button>
-
-            <!-- PLAY / PAUSE -->
-
-            <button
-                type="button"
-                id="musicToggle"
-                aria-label="Putar musik"
-            >
-                ▶
-            </button>
-
-            <!-- NEXT -->
-
-            <button
-                type="button"
-                id="musicNext"
-                aria-label="Lagu berikutnya"
-            >
-                ⏭
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- =====================================
-         CONFETTI LAYER
-    ===================================== -->
-
-    <div
-        class="confetti-layer"
-        id="confettiLayer"
-        aria-hidden="true"
-    ></div>
+    <script
+        src="aset/js/intro.js"
+        defer
+    ></script>
 
 </body>
 

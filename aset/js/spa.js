@@ -8,27 +8,26 @@
     "use strict";
 
     const PAGES = [
-        "index.html",
-        "album.html",
-        "booth.html",
-        "arcade.html",
-        "wall.html"
+        "home.html",
+    "album.html",
+    "booth.html",
+    "arcade.html",
+    "wall.html"
     ];
 
     let loading = false;
 
-    function getFilename(url) {
-        const parsed = new URL(
-            url,
-            window.location.href
-        );
+function getFilename(url) {
+    const parsed = new URL(
+        url,
+        window.location.href
+    );
 
-        return (
-            parsed.pathname.split("/").pop() ||
-            "index.html"
-        );
-    }
-
+    return (
+        parsed.pathname.split("/").pop() ||
+        "home.html"
+    );
+}
     function updateNavigation(filename) {
         document.querySelectorAll(
             ".topnav .navlink, .mobile-nav .navlink"

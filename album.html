@@ -17,24 +17,33 @@
 
     <meta
         name="description"
-        content="Galeri 143 foto dan 51 video BISING! CLUB."
+        content="Galeri 143 foto dan 51 video Study Group's."
     >
 
     <title>Album | Study Group's</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="aset/css/style.css">
+    <!-- =====================================
+         CSS
+    ===================================== -->
 
-    <!-- JAVASCRIPT -->
-    <script src="aset/js/data.js" defer></script>
-    <script src="aset/js/app.js" defer></script>
+    <link
+        rel="stylesheet"
+        href="aset/css/style.css"
+    >
+
 </head>
 
 <body data-page="album">
 
-    <!-- BACKGROUND -->
+    <!-- =====================================
+         BACKGROUND
+    ===================================== -->
 
-    <div class="noise" aria-hidden="true"></div>
+    <div
+        class="noise"
+        aria-hidden="true"
+    ></div>
+
 
     <!-- =====================================
          NAVBAR
@@ -42,20 +51,30 @@
 
     <header class="topbar">
 
+        <!-- LOGO -->
+
         <a
             class="logo"
-            href="index.html"
-            aria-label="Bising Club, beranda"
+            href="home.html"
+            aria-label="Study Group's, beranda"
         >
             <span class="logo-burst">+</span>
+
             Study Group's<span class="logo-punct">!</span>
+
             <small>eaaaaaa</small>
         </a>
 
-        <nav class="topnav" aria-label="Menu utama">
+
+        <!-- DESKTOP NAVIGATION -->
+
+        <nav
+            class="topnav"
+            aria-label="Menu utama"
+        >
 
             <a
-                href="index.html"
+                href="home.html"
                 class="navlink"
             >
                 <span class="nav-icon">⌂</span>
@@ -97,6 +116,9 @@
 
         </nav>
 
+
+        <!-- LIVE STATUS -->
+
         <div class="live-tag">
             <span class="live-dot"></span>
             STILL LOUD
@@ -104,42 +126,49 @@
 
     </header>
 
+
     <!-- =====================================
-         ALBUM CONTENT
+         MAIN ALBUM CONTENT
     ===================================== -->
 
     <main id="main">
 
         <section class="album-shell">
 
-            <!-- ALBUM HEADER -->
+
+            <!-- =================================
+                 ALBUM HEADER
+            ================================= -->
 
             <div class="section-head album-head">
 
                 <div>
-                    
 
                     <h1>
                         FOTO<em> RANDOM</em>
                         <span class="head-star">✷</span>
                     </h1>
+
                 </div>
+
 
                 <div class="album-count">
 
-                    <span id="photoCount"></span>
-
-                
+                    <span id="photoCount">0</span>
 
                 </div>
 
             </div>
 
+
             <!-- =================================
-                 FILTER DAN TOOLS
+                 FILTER AND TOOLS
             ================================= -->
 
             <div class="album-toolbar">
+
+
+                <!-- FILTER BUTTONS -->
 
                 <div
                     class="filter-tabs"
@@ -204,6 +233,7 @@
 
                 </div>
 
+
                 <!-- ALBUM ACTIONS -->
 
                 <div class="album-tools">
@@ -230,6 +260,7 @@
 
             </div>
 
+
             <!-- =================================
                  PHOTO AND VIDEO GRID
             ================================= -->
@@ -239,7 +270,10 @@
                 id="albumGrid"
             ></div>
 
-            <!-- EMPTY STATE -->
+
+            <!-- =================================
+                 EMPTY GALLERY
+            ================================= -->
 
             <div
                 class="empty-gallery"
@@ -249,7 +283,10 @@
                 Belum ada media di kategori ini :')
             </div>
 
-            <!-- LOAD MORE -->
+
+            <!-- =================================
+                 LOAD MORE
+            ================================= -->
 
             <div class="album-load-more">
 
@@ -264,7 +301,10 @@
 
             </div>
 
-            <!-- ALBUM FOOTER -->
+
+            <!-- =================================
+                 ALBUM FOOTER
+            ================================= -->
 
             <div class="album-footer">
 
@@ -283,6 +323,7 @@
 
     </main>
 
+
     <!-- =====================================
          MOBILE NAVIGATION
     ===================================== -->
@@ -293,7 +334,7 @@
     >
 
         <a
-            href="index.html"
+            href="home.html"
             class="navlink"
         >
             <span class="nav-icon">⌂</span>
@@ -335,8 +376,86 @@
 
     </nav>
 
+
     <!-- =====================================
-         TOAST
+         MUSIC PLAYER
+         DITAMBAHKAN
+    ===================================== -->
+
+    <div
+        class="music-player"
+        id="musicPlayer"
+    >
+
+        <!-- AUDIO -->
+
+        <audio
+            id="backgroundMusic"
+            preload="metadata"
+        ></audio>
+
+
+        <!-- MUSIC INFORMATION -->
+
+        <div class="music-info">
+
+            <span class="music-icon">
+                ♫
+            </span>
+
+            <div class="music-details">
+
+                <strong id="musicTitle">
+                    LAGU 01
+                </strong>
+
+                <small id="musicStatus">
+                    MUSIC OFF
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- MUSIC CONTROLS -->
+
+        <div class="music-controls">
+
+            <button
+                type="button"
+                id="musicPrev"
+                aria-label="Lagu sebelumnya"
+                title="Lagu sebelumnya"
+            >
+                ⏮
+            </button>
+
+            <button
+                type="button"
+                id="musicToggle"
+                aria-label="Putar musik"
+                title="Play / Pause"
+            >
+                ▶
+            </button>
+
+            <button
+                type="button"
+                id="musicNext"
+                aria-label="Lagu selanjutnya"
+                title="Lagu selanjutnya"
+            >
+                ⏭
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         TOAST NOTIFICATION
     ===================================== -->
 
     <div
@@ -346,8 +465,9 @@
         aria-live="polite"
     ></div>
 
+
     <!-- =====================================
-         MEDIA VIEWER
+         PHOTO AND VIDEO VIEWER
     ===================================== -->
 
     <div
@@ -363,6 +483,7 @@
             data-close="viewer"
         ></div>
 
+
         <!-- VIEWER WINDOW -->
 
         <div
@@ -372,15 +493,17 @@
             aria-label="Lihat media"
         >
 
+
             <!-- VIEWER HEADER -->
 
             <div class="viewer-top">
 
-                <span id="viewerTag">
-                
-                </span>
+                <span id="viewerTag"></span>
+
 
                 <div class="viewer-actions">
+
+                    <!-- FAVORITE -->
 
                     <button
                         type="button"
@@ -390,6 +513,9 @@
                         ♡
                     </button>
 
+
+                    <!-- DOWNLOAD -->
+
                     <a
                         id="viewerDownload"
                         href="#"
@@ -398,6 +524,9 @@
                     >
                         ↓
                     </a>
+
+
+                    <!-- CLOSE -->
 
                     <button
                         type="button"
@@ -411,9 +540,12 @@
 
             </div>
 
-            <!-- PHOTO OR VIDEO -->
+
+            <!-- VIEWER CONTENT -->
 
             <div class="viewer-photo media-viewer-content">
+
+                <!-- PREVIOUS -->
 
                 <button
                     type="button"
@@ -424,13 +556,15 @@
                     ‹
                 </button>
 
-                <!-- FOTO -->
+
+                <!-- IMAGE -->
 
                 <img
                     id="viewerImage"
-                    alt="Foto BISING CLUB"
+                    alt="Foto Study Group's"
                     hidden
                 >
+
 
                 <!-- VIDEO -->
 
@@ -442,6 +576,9 @@
                     hidden
                 ></video>
 
+
+                <!-- NEXT -->
+
                 <button
                     type="button"
                     class="viewer-arrow next"
@@ -452,6 +589,7 @@
                 </button>
 
             </div>
+
 
             <!-- VIEWER FOOTER -->
 
@@ -467,6 +605,7 @@
 
     </div>
 
+
     <!-- =====================================
          CONFETTI
     ===================================== -->
@@ -476,6 +615,28 @@
         id="confettiLayer"
         aria-hidden="true"
     ></div>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+
+         URUTAN JANGAN DIBALIK
+    ===================================== -->
+
+    <script
+        src="aset/js/data.js"
+        defer
+    ></script>
+
+    <script
+        src="aset/js/app.js"
+        defer
+    ></script>
+
+    <script
+        src="aset/js/spa.js"
+        defer
+    ></script>
 
 </body>
 

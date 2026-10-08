@@ -38,7 +38,7 @@
 
     const LOADING_DURATION = 4200;
 
-    const DESTINATION = "index.html";
+    const DESTINATION = "home.html";
 
     const INTRO_MUSIC_SRC =
         "aset/music/lagu-01.mp3";

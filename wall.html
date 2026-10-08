@@ -17,32 +17,33 @@
 
     <meta
         name="description"
-        content="BISING! CLUB — album foto, photobooth, arcade, dan papan absurd satu geng."
+        content="Wall Study Group's - papan foto dan catatan satu geng."
     >
 
     <title>Wall | Study Group's</title>
 
-    <!-- CSS -->
+    <!-- =====================================
+         CSS
+    ===================================== -->
+
     <link
         rel="stylesheet"
         href="aset/css/style.css"
     >
 
-    <!-- JAVASCRIPT -->
-    <script src="aset/js/data.js" defer></script>
-    <script src="aset/js/app.js" defer></script>
 </head>
 
 <body data-page="wall">
 
     <!-- =====================================
-         BACKGROUND NOISE
+         BACKGROUND
     ===================================== -->
 
     <div
         class="noise"
         aria-hidden="true"
     ></div>
+
 
     <!-- =====================================
          HEADER / NAVBAR
@@ -54,8 +55,8 @@
 
         <a
             class="logo"
-            href="index.html"
-            aria-label="Bising Club, beranda"
+            href="home.html"
+            aria-label="Study Group's, beranda"
         >
             <span class="logo-burst">+</span>
 
@@ -63,6 +64,7 @@
 
             <small>eaaaaaa</small>
         </a>
+
 
         <!-- DESKTOP NAVIGATION -->
 
@@ -72,9 +74,8 @@
         >
 
             <a
-                href="index.html"
+                href="home.html"
                 class="navlink"
-                aria-current="false"
             >
                 <span class="nav-icon">⌂</span>
                 <span>START</span>
@@ -83,7 +84,6 @@
             <a
                 href="album.html"
                 class="navlink"
-                aria-current="false"
             >
                 <span class="nav-icon">▦</span>
                 <span>ALBUM</span>
@@ -92,7 +92,6 @@
             <a
                 href="booth.html"
                 class="navlink"
-                aria-current="false"
             >
                 <span class="nav-icon">▣</span>
                 <span>BOOTH</span>
@@ -101,7 +100,6 @@
             <a
                 href="arcade.html"
                 class="navlink"
-                aria-current="false"
             >
                 <span class="nav-icon">✳</span>
                 <span>ARCADE</span>
@@ -118,22 +116,28 @@
 
         </nav>
 
+
         <!-- LIVE STATUS -->
 
         <div class="live-tag">
+
             <span class="live-dot"></span>
+
             STILL LOUD
+
         </div>
 
     </header>
 
+
     <!-- =====================================
-         MAIN CONTENT
+         MAIN WALL CONTENT
     ===================================== -->
 
     <main id="main">
 
         <section class="wall-shell">
+
 
             <!-- =================================
                  WALL HEADER
@@ -155,11 +159,10 @@
 
                 </div>
 
-                <!-- WALL ACTION BUTTONS -->
+
+                <!-- WALL ACTIONS -->
 
                 <div class="wall-buttons">
-
-                    <!-- SHUFFLE BOARD -->
 
                     <button
                         type="button"
@@ -167,8 +170,6 @@
                     >
                         ↻ ACAK
                     </button>
-
-                    <!-- RESET BOARD -->
 
                     <button
                         type="button"
@@ -181,15 +182,17 @@
 
             </div>
 
+
             <!-- =================================
                  WALL LAYOUT
             ================================= -->
 
             <div class="wall-flex">
 
-                <!-- =============================
+
+                <!-- =================================
                      INTERACTIVE WALL BOARD
-                ============================= -->
+                ================================= -->
 
                 <div
                     class="wall-board"
@@ -197,17 +200,23 @@
                     aria-label="Papan foto dan sticky notes yang bisa diseret"
                 >
 
-                    <!-- BOARD BACKGROUND PATTERN -->
+                    <!-- BACKGROUND PATTERN -->
 
                     <div class="board-pattern"></div>
+
 
                     <!-- BOARD STAMP -->
 
                     <div class="board-stamp">
+
                         KUMPUL, FOTO,
+
                         <br>
+
                         ULANG LAGI.
+
                     </div>
+
 
                     <!-- BOARD DECORATION -->
 
@@ -215,17 +224,14 @@
                         ✳
                     </div>
 
-                    <!-- =========================
-                         DRAGGABLE BOARD ITEMS
-                    ========================= -->
+
+                    <!-- DRAGGABLE ITEMS -->
 
                     <!--
-                        Foto dan sticky notes akan
-                        dimunculkan otomatis oleh
-                        fungsi drawBoard() di app.js.
-
-                        Pengguna bisa menggeser
-                        posisi foto dan catatan.
+                        Foto dan sticky notes
+                        dibuat otomatis melalui
+                        fungsi drawBoard()
+                        di aset/js/app.js.
                     -->
 
                     <div
@@ -235,17 +241,20 @@
 
                 </div>
 
-                <!-- =============================
+
+                <!-- =================================
                      WALL SIDEBAR
-                ============================= -->
+                ================================= -->
 
                 <aside class="wall-side">
+
 
                     <!-- DECORATIVE ICON -->
 
                     <div class="wall-side-mark">
                         ✐
                     </div>
+
 
                     <!-- SIDEBAR TITLE -->
 
@@ -255,11 +264,13 @@
                         CATATAN
                     </h2>
 
-                    <!-- =========================
-                         ADD STICKY NOTE FORM
-                    ========================= -->
+
+                    <!-- =================================
+                         ADD NOTE FORM
+                    ================================= -->
 
                     <form id="wallForm">
+
 
                         <!-- NOTE LABEL -->
 
@@ -267,7 +278,8 @@
                             ISI BEBAS (ASAL SOPAN)
                         </label>
 
-                        <!-- NOTE TEXTAREA -->
+
+                        <!-- NOTE INPUT -->
 
                         <textarea
                             id="wallNote"
@@ -277,6 +289,7 @@
                             rows="3"
                         ></textarea>
 
+
                         <!-- ADD NOTE BUTTON -->
 
                         <button type="submit">
@@ -285,24 +298,34 @@
 
                     </form>
 
-                    <!-- =========================
-                         SIDEBAR INFORMATION
-                    ========================= -->
+
+                    <!-- SIDEBAR INFORMATION -->
 
                     <span class="wall-side-bottom">
-                        geser foto & note ↗
+
+                        geser foto &amp; note ↗
+
                         <br>
+
                         tersimpan di browser ini
+
                     </span>
+
 
                     <!-- DECORATIVE STICKER -->
 
                     <div class="wall-sticker">
+
                         NO
+
                         <br>
+
                         CONTEXT
+
                         <br>
+
                         ALLOWED ✷
+
                     </div>
 
                 </aside>
@@ -313,6 +336,7 @@
 
     </main>
 
+
     <!-- =====================================
          MOBILE NAVIGATION
     ===================================== -->
@@ -322,51 +346,37 @@
         aria-label="Menu bawah"
     >
 
-        <!-- START -->
-
         <a
-            href="index.html"
+            href="home.html"
             class="navlink"
-            aria-current="false"
         >
             <span class="nav-icon">⌂</span>
             <span>START</span>
         </a>
 
-        <!-- ALBUM -->
-
         <a
             href="album.html"
             class="navlink"
-            aria-current="false"
         >
             <span class="nav-icon">▦</span>
             <span>ALBUM</span>
         </a>
 
-        <!-- PHOTOBOOTH -->
-
         <a
             href="booth.html"
             class="navlink"
-            aria-current="false"
         >
             <span class="nav-icon">▣</span>
             <span>BOOTH</span>
         </a>
 
-        <!-- ARCADE -->
-
         <a
             href="arcade.html"
             class="navlink"
-            aria-current="false"
         >
             <span class="nav-icon">✳</span>
             <span>ARCADE</span>
         </a>
-
-        <!-- WALL -->
 
         <a
             href="wall.html"
@@ -379,6 +389,84 @@
 
     </nav>
 
+
+    <!-- =====================================
+         MUSIC PLAYER
+         DI LUAR MAIN
+    ===================================== -->
+
+    <div
+        class="music-player"
+        id="musicPlayer"
+    >
+
+        <!-- AUDIO -->
+
+        <audio
+            id="backgroundMusic"
+            preload="metadata"
+        ></audio>
+
+
+        <!-- MUSIC INFORMATION -->
+
+        <div class="music-info">
+
+            <span class="music-icon">
+                ♫
+            </span>
+
+            <div class="music-details">
+
+                <strong id="musicTitle">
+                    LAGU 01
+                </strong>
+
+                <small id="musicStatus">
+                    MUSIC OFF
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- MUSIC CONTROLS -->
+
+        <div class="music-controls">
+
+            <button
+                type="button"
+                id="musicPrev"
+                aria-label="Lagu sebelumnya"
+                title="Lagu sebelumnya"
+            >
+                ⏮
+            </button>
+
+            <button
+                type="button"
+                id="musicToggle"
+                aria-label="Putar musik"
+                title="Play / Pause"
+            >
+                ▶
+            </button>
+
+            <button
+                type="button"
+                id="musicNext"
+                aria-label="Lagu berikutnya"
+                title="Lagu berikutnya"
+            >
+                ⏭
+            </button>
+
+        </div>
+
+    </div>
+
+
     <!-- =====================================
          TOAST NOTIFICATION
     ===================================== -->
@@ -390,8 +478,9 @@
         aria-live="polite"
     ></div>
 
+
     <!-- =====================================
-         PHOTO VIEWER / MODAL
+         PHOTO AND VIDEO VIEWER
     ===================================== -->
 
     <div
@@ -400,29 +489,30 @@
         aria-hidden="true"
     >
 
-        <!-- DARK BACKDROP -->
+        <!-- BACKDROP -->
 
         <div
             class="viewer-backdrop"
             data-close="viewer"
         ></div>
 
-        <!-- VIEWER CONTAINER -->
+
+        <!-- VIEWER WINDOW -->
 
         <div
             class="viewer-shell"
             role="dialog"
             aria-modal="true"
-            aria-label="Lihat foto"
+            aria-label="Lihat media"
         >
+
 
             <!-- VIEWER HEADER -->
 
             <div class="viewer-top">
 
-                <span id="viewerTag">
-                    FILE 01/17
-                </span>
+                <span id="viewerTag"></span>
+
 
                 <!-- VIEWER ACTIONS -->
 
@@ -433,10 +523,11 @@
                     <button
                         type="button"
                         id="viewerHeart"
-                        aria-label="Tandai foto favorit"
+                        aria-label="Tandai favorit"
                     >
                         ♡
                     </button>
+
 
                     <!-- DOWNLOAD -->
 
@@ -444,17 +535,18 @@
                         id="viewerDownload"
                         href="#"
                         download
-                        aria-label="Unduh foto"
+                        aria-label="Unduh media"
                     >
                         ↓
                     </a>
+
 
                     <!-- CLOSE -->
 
                     <button
                         type="button"
                         data-close="viewer"
-                        aria-label="Tutup foto"
+                        aria-label="Tutup viewer"
                     >
                         ✕
                     </button>
@@ -463,42 +555,56 @@
 
             </div>
 
-            <!-- =================================
-                 VIEWER PHOTO
-            ================================= -->
 
-            <div class="viewer-photo">
+            <!-- VIEWER CONTENT -->
 
-                <!-- PREVIOUS PHOTO -->
+            <div class="viewer-photo media-viewer-content">
+
+                <!-- PREVIOUS -->
 
                 <button
                     type="button"
                     class="viewer-arrow prev"
                     id="viewerPrev"
-                    aria-label="Foto sebelumnya"
+                    aria-label="Media sebelumnya"
                 >
                     ‹
                 </button>
 
-                <!-- MAIN PHOTO -->
+
+                <!-- PHOTO -->
 
                 <img
                     id="viewerImage"
-                    alt="Foto geng"
+                    alt="Foto Study Group's"
+                    hidden
                 >
 
-                <!-- NEXT PHOTO -->
+
+                <!-- VIDEO -->
+
+                <video
+                    id="viewerVideo"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    hidden
+                ></video>
+
+
+                <!-- NEXT -->
 
                 <button
                     type="button"
                     class="viewer-arrow next"
                     id="viewerNext"
-                    aria-label="Foto berikutnya"
+                    aria-label="Media berikutnya"
                 >
                     ›
                 </button>
 
             </div>
+
 
             <!-- VIEWER FOOTER -->
 
@@ -516,8 +622,9 @@
 
     </div>
 
+
     <!-- =====================================
-         CONFETTI ANIMATION
+         CONFETTI
     ===================================== -->
 
     <div
@@ -525,6 +632,27 @@
         id="confettiLayer"
         aria-hidden="true"
     ></div>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+         URUTAN JANGAN DIUBAH
+    ===================================== -->
+
+    <script
+        src="aset/js/data.js"
+        defer
+    ></script>
+
+    <script
+        src="aset/js/app.js"
+        defer
+    ></script>
+
+    <script
+        src="aset/js/spa.js"
+        defer
+    ></script>
 
 </body>
 
