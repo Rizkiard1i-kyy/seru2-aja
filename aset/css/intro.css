@@ -1,0 +1,1008 @@
+
+/* =========================================
+   BISING! CLUB
+   INTRO PAGE CSS
+========================================= */
+
+/* =====================================
+   1. VARIABLES
+===================================== */
+
+:root {
+    --ink: #161616;
+    --paper: #f6f0e7;
+    --lime: #d3ff50;
+    --pink: #ff91c5;
+    --blue: #91baff;
+    --orange: #ff9966;
+}
+
+/* =====================================
+   2. RESET
+===================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+
+    background: var(--ink);
+    color: var(--paper);
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    font: inherit;
+}
+
+button:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 4px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* =====================================
+   3. BACKGROUND
+===================================== */
+
+.intro-noise {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    opacity: 0.07;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+.intro-decoration {
+    position: fixed;
+    inset: 0;
+
+    z-index: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.decoration-star {
+    position: absolute;
+
+    display: block;
+
+    font-size: clamp(65px, 12vw, 180px);
+    font-weight: 900;
+
+    animation: floatingStar 5s ease-in-out infinite;
+}
+
+.star-one {
+    top: 10%;
+    left: 5%;
+
+    color: var(--lime);
+}
+
+.star-two {
+    right: 5%;
+    bottom: 8%;
+
+    color: var(--pink);
+
+    animation-delay: -2s;
+}
+
+.star-three {
+    top: 15%;
+    right: 15%;
+
+    color: var(--blue);
+
+    font-size: clamp(40px, 8vw, 110px);
+
+    animation-delay: -3s;
+}
+
+.decoration-circle {
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    border: 3px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+
+    animation: rotateCircle 18s linear infinite;
+}
+
+.circle-one {
+    top: -110px;
+    right: -90px;
+}
+
+.circle-two {
+    bottom: -140px;
+    left: -100px;
+
+    width: 350px;
+    height: 350px;
+
+    animation-direction: reverse;
+}
+
+/* =====================================
+   4. INTRO CONTAINER
+===================================== */
+
+.intro-container {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    padding: 90px 24px;
+}
+
+.intro-top-label {
+    position: absolute;
+
+    top: 30px;
+    left: 35px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+    background: var(--lime);
+
+    box-shadow: 0 0 15px var(--lime);
+
+    animation: blinkStatus 1.3s infinite;
+}
+
+.intro-version {
+    color: var(--lime);
+}
+
+/* =====================================
+   5. SCREENS
+===================================== */
+
+.intro-screen {
+    position: relative;
+
+    width: min(100%, 1000px);
+
+    text-align: center;
+}
+
+.intro-screen.active {
+    animation: screenEnter 0.7s ease both;
+}
+
+/* =====================================
+   6. LOADING SCREEN
+===================================== */
+
+.loading-screen {
+    padding: 40px 15px;
+}
+
+.loading-sticker {
+    display: inline-block;
+
+    margin-bottom: 40px;
+    padding: 10px 18px;
+
+    background: var(--orange);
+    color: var(--ink);
+
+    border: 3px solid var(--ink);
+
+    box-shadow: 5px 5px 0 var(--lime);
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    transform: rotate(-4deg);
+
+    animation: stickerWiggle 2s infinite;
+}
+
+.loading-small-text {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: var(--lime);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.loading-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: clamp(70px, 13vw, 170px);
+    font-weight: 1000;
+
+    line-height: 0.85;
+    letter-spacing: -7px;
+}
+
+.loading-title span {
+    margin-top: 15px;
+
+    color: var(--lime);
+
+    text-shadow: 5px 5px 0 var(--pink);
+}
+
+.loading-message {
+    min-height: 24px;
+
+    margin-top: 36px;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* =====================================
+   7. PROGRESS BAR
+===================================== */
+
+.progress-wrapper {
+    width: min(100%, 570px);
+
+    margin: 32px auto 0;
+}
+
+.progress-track {
+    height: 28px;
+
+    overflow: hidden;
+
+    background: #343434;
+    border: 3px solid var(--paper);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            var(--lime),
+            var(--lime) 14px,
+            #a6dc2b 14px,
+            #a6dc2b 28px
+        );
+
+    transition: width 0.12s linear;
+}
+
+.progress-information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 12px;
+
+    color: var(--lime);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+#progressNumber {
+    font-size: 19px;
+}
+
+.loading-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    max-width: 700px;
+
+    margin: 55px auto 0;
+
+    color: #999;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+/* =====================================
+   8. REVEAL SCREEN
+===================================== */
+
+.reveal-screen {
+    padding: 25px 10px 40px;
+}
+
+.reveal-sticker {
+    display: inline-block;
+
+    padding: 12px 26px;
+    margin-bottom: 30px;
+
+    background: var(--pink);
+    color: var(--ink);
+
+    border: 3px solid var(--ink);
+
+    box-shadow: 6px 6px 0 var(--blue);
+
+    font-size: 18px;
+    font-weight: 1000;
+    letter-spacing: 2px;
+
+    transform: rotate(5deg);
+
+    animation: stickerWiggle 2s infinite;
+}
+
+.reveal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reveal-eyebrow {
+    color: var(--lime);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.reveal-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 20px 0;
+
+    font-size: clamp(76px, 15vw, 190px);
+    font-weight: 1000;
+
+    line-height: 0.83;
+    letter-spacing: -9px;
+}
+
+.reveal-line {
+    display: block;
+
+    animation: revealPop 0.65s ease both;
+}
+
+.reveal-accent {
+    margin-top: 20px;
+
+    color: var(--lime);
+
+    text-shadow: 7px 7px 0 var(--pink);
+
+    animation-delay: 0.2s;
+}
+
+.reveal-subtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 22px;
+    padding: 12px 20px;
+
+    background: var(--paper);
+    color: var(--ink);
+
+    font-size: clamp(10px, 1.6vw, 15px);
+    font-weight: 900;
+
+    transform: rotate(-2deg);
+}
+
+.reveal-subtitle span {
+    color: #e44630;
+    font-size: 20px;
+}
+
+.reveal-description {
+    max-width: 520px;
+
+    margin: 28px auto 0;
+
+    color: #c9c5bc;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* =====================================
+   9. MUSIC SELECTION
+===================================== */
+
+.intro-music-choice {
+    width: 100%;
+
+    margin-top: 30px;
+
+    text-align: center;
+}
+
+.music-question {
+    margin-bottom: 15px;
+
+    color: var(--paper);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.intro-music-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+.intro-music-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-width: 165px;
+
+    padding: 14px 18px;
+
+    background: var(--ink);
+    color: var(--paper);
+
+    border: 2px solid var(--paper);
+
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.intro-music-btn span {
+    font-size: 19px;
+}
+
+.intro-music-btn.selected {
+    background: var(--lime);
+    color: var(--ink);
+
+    border-color: var(--lime);
+
+    box-shadow: 5px 5px 0 var(--pink);
+}
+
+.intro-music-btn:hover {
+    transform: translateY(-3px);
+}
+
+.music-choice-status {
+    min-height: 18px;
+
+    margin-top: 15px;
+
+    color: #aaa;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* =====================================
+   10. ENTER BUTTON
+===================================== */
+
+.enter-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    margin-top: 28px;
+    padding: 19px 30px;
+
+    background: var(--lime);
+    color: var(--ink);
+
+    border: 3px solid var(--ink);
+
+    box-shadow: 7px 7px 0 var(--pink);
+
+    font-size: 17px;
+    font-weight: 1000;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+.enter-button:hover {
+    background: var(--pink);
+
+    transform: translate(-3px, -3px);
+
+    box-shadow: 10px 10px 0 var(--blue);
+}
+
+.enter-button:active {
+    transform: translate(3px, 3px);
+}
+
+.enter-button:disabled {
+    cursor: wait;
+}
+
+.enter-button span {
+    font-size: 25px;
+}
+
+.enter-hint {
+    margin-top: 20px;
+
+    color: #aaa;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.reveal-corner-label {
+    position: absolute;
+
+    right: 0;
+    bottom: -12px;
+
+    color: var(--pink);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    transform: rotate(-7deg);
+}
+
+/* =====================================
+   11. ENTER TRANSITION
+===================================== */
+
+.intro-transition {
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--lime);
+
+    transform: translateY(100%);
+
+    pointer-events: none;
+}
+
+.intro-transition.active {
+    animation: transitionRise 0.75s
+        cubic-bezier(0.76, 0, 0.24, 1)
+        forwards;
+}
+
+.intro-transition span {
+    color: var(--ink);
+
+    font-size: clamp(65px, 13vw, 165px);
+    font-weight: 1000;
+    letter-spacing: -5px;
+
+    transform: rotate(-6deg);
+}
+
+/* =====================================
+   12. CONFETTI
+===================================== */
+
+.intro-confetti {
+    position: fixed;
+    inset: 0;
+
+    z-index: 50;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.intro-confetti i {
+    position: absolute;
+
+    top: -30px;
+
+    display: block;
+
+    background: var(--pink);
+
+    animation: confettiFall
+        var(--fall-duration, 3s)
+        linear forwards;
+}
+
+/* =====================================
+   13. FOOTER
+===================================== */
+
+.intro-footer {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 20px;
+
+    z-index: 3;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 35px;
+
+    color: #888;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    pointer-events: none;
+}
+
+/* =====================================
+   14. KEYFRAMES
+===================================== */
+
+@keyframes blinkStatus {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@keyframes floatingStar {
+    0%, 100% {
+        translate: 0 0;
+        rotate: -8deg;
+    }
+
+    50% {
+        translate: 0 -20px;
+        rotate: 8deg;
+    }
+}
+
+@keyframes rotateCircle {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes stickerWiggle {
+    0%, 100% {
+        rotate: -3deg;
+    }
+
+    50% {
+        rotate: 3deg;
+    }
+}
+
+@keyframes screenEnter {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes revealPop {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-12deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes transitionRise {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes confettiFall {
+    from {
+        opacity: 1;
+
+        transform:
+            translate3d(0, -20px, 0)
+            rotate(0deg);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translate3d(
+                var(--fall-x, 0px),
+                110vh,
+                0
+            )
+            rotate(var(--fall-rotate, 900deg));
+    }
+}
+
+/* =====================================
+   15. TABLET
+===================================== */
+
+@media (max-width: 900px) {
+    .loading-title {
+        letter-spacing: -5px;
+    }
+
+    .reveal-title {
+        letter-spacing: -6px;
+    }
+
+    .decoration-star {
+        opacity: 0.55;
+    }
+}
+
+/* =====================================
+   16. MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+    .intro-container {
+        padding: 100px 18px 85px;
+    }
+
+    .intro-top-label {
+        top: 20px;
+        left: 18px;
+
+        font-size: 10px;
+    }
+
+    .loading-sticker {
+        padding: 8px 12px;
+
+        margin-bottom: 35px;
+
+        font-size: 10px;
+    }
+
+    .loading-title {
+        font-size: clamp(58px, 15vw, 90px);
+        letter-spacing: -4px;
+    }
+
+    .loading-message {
+        margin-top: 28px;
+
+        font-size: 12px;
+    }
+
+    .progress-track {
+        height: 23px;
+    }
+
+    .progress-information {
+        font-size: 9px;
+    }
+
+    #progressNumber {
+        font-size: 15px;
+    }
+
+    .loading-bottom {
+        margin-top: 40px;
+
+        font-size: 9px;
+    }
+
+    .reveal-sticker {
+        padding: 9px 15px;
+
+        font-size: 13px;
+    }
+
+    .reveal-eyebrow {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .reveal-title {
+        font-size: clamp(61px, 16vw, 110px);
+        letter-spacing: -5px;
+    }
+
+    .reveal-accent {
+        text-shadow: 4px 4px 0 var(--pink);
+    }
+
+    .reveal-subtitle {
+        gap: 6px;
+        padding: 10px;
+
+        font-size: 9px;
+    }
+
+    .reveal-description {
+        font-size: 13px;
+    }
+
+    .intro-music-choice {
+        margin-top: 25px;
+    }
+
+    .music-question {
+        font-size: 12px;
+    }
+
+    .intro-music-btn {
+        min-width: 135px;
+
+        padding: 12px;
+
+        font-size: 11px;
+    }
+
+    .music-choice-status {
+        font-size: 9px;
+    }
+
+    .enter-button {
+        gap: 12px;
+
+        padding: 16px 18px;
+
+        font-size: 13px;
+    }
+
+    .enter-hint {
+        font-size: 9px;
+    }
+
+    .reveal-corner-label {
+        right: 5px;
+
+        font-size: 9px;
+    }
+
+    .intro-footer {
+        padding: 0 18px;
+
+        font-size: 9px;
+    }
+
+    .decoration-star {
+        opacity: 0.3;
+    }
+}
+
+/* =====================================
+   17. REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

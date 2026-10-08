@@ -2,27 +2,24 @@
 /* =========================================
    BISING! CLUB
    MAIN JAVASCRIPT
-   SPA + MUSIC PLAYER
+   MUSIC + ALBUM + BOOTH + ARCADE + WALL + SPA
 ========================================= */
 
 (() => {
     "use strict";
 
     /* =====================================
-       GLOBAL HELPERS
+       1. HELPERS
     ===================================== */
 
-    const $ = (selector, parent = document) => {
-        return parent.querySelector(selector);
-    };
+    const $ = (selector, parent = document) =>
+        parent.querySelector(selector);
 
-    const $$ = (selector, parent = document) => {
-        return [...parent.querySelectorAll(selector)];
-    };
+    const $$ = (selector, parent = document) =>
+        [...parent.querySelectorAll(selector)];
 
-    const rand = (number) => {
-        return Math.floor(Math.random() * number);
-    };
+    const rand = (number) =>
+        Math.floor(Math.random() * number);
 
     const shuffle = (items) => {
         const result = [...items];
@@ -39,15 +36,10 @@
         return result;
     };
 
-    const clamp = (value, min, max) => {
-        return Math.max(min, Math.min(max, value));
-    };
+    const clamp = (value, min, max) =>
+        Math.max(min, Math.min(max, value));
 
     let page = document.body.dataset.page;
-
-    /* =====================================
-       LOCAL STORAGE
-    ===================================== */
 
     const storage = {
         get(key, fallback) {
@@ -68,30 +60,40 @@
                     key,
                     JSON.stringify(value)
                 );
-            } catch {
-                console.warn(
-                    "LocalStorage tidak tersedia"
-                );
+            } catch (error) {
+                console.warn("Storage error:", error);
+            }
+        },
+
+        remove(key) {
+            try {
+                localStorage.removeItem(key);
+            } catch (error) {
+                console.warn("Storage error:", error);
             }
         }
     };
 
     /* =====================================
-       FAVORITES
+       2. FAVORITES
     ===================================== */
 
-    const favorites = new Set(
-        storage.get("bising.favorites", [])
-            .map((id) => {
-                return typeof id === "number"
-                    ? `foto-${id}`
-                    : id;
-            })
+    const savedFavorites = storage.get(
+        "bising.favorites",
+        []
     );
 
-    function mediaKey(item) {
-        return `${item.type}-${item.id}`;
-    }
+    const favorites = new Set(
+        (Array.isArray(savedFavorites) ? savedFavorites : [])
+            .map((id) =>
+                typeof id === "number"
+                    ? `foto-${id}`
+                    : id
+            )
+    );
+
+    const mediaKey = (item) =>
+        `${item.type}-${item.id}`;
 
     function isFavorite(item) {
         return favorites.has(mediaKey(item));
@@ -119,7 +121,7 @@
     }
 
     /* =====================================
-       TOAST NOTIFICATION
+       3. TOAST
     ===================================== */
 
     let toastTimer = null;
@@ -130,7 +132,6 @@
         if (!element) return;
 
         element.textContent = message;
-
         element.classList.add("show");
 
         clearTimeout(toastTimer);
@@ -141,7 +142,7 @@
     }
 
     /* =====================================
-       CONFETTI
+       4. CONFETTI
     ===================================== */
 
     function burst(amount = 40) {
@@ -192,53 +193,45 @@
     }
 
     /* =====================================
-       MUSIC PLAYLIST
+       5. MUSIC PLAYLIST
 
-       UBAH NAMA LAGU DI SINI
+       NAMA FILE HARUS SAMA DENGAN FOLDER
+       aset/music/
     ===================================== */
 
-
-/* =====================================
-   MUSIC PLAYLIST
-===================================== */
-
-const MUSIC_PLAYLIST = [
-    {
-        title: "LAGU 01",
-        src: "aset/music/lagu-01.mp3"
-    },
-    {
-        title: "LAGU 02",
-        src: "aset/music/lagu-02.mp3"
-    },
-    {
-        title: "LAGU 03",
-        src: "aset/music/lagu-03.mp3"
-    },
-];
+    const MUSIC_PLAYLIST = [
+        {
+            title: "LAGU 01",
+            src: "aset/music/lagu-01.mp3"
+        },
+        {
+            title: "LAGU 02",
+            src: "aset/music/lagu-02.mp3"
+        },
+        {
+            title: "LAGU 03",
+            src: "aset/music/lagu-03.mp3"
+        }
+    ];
 
     /* =====================================
-       MUSIC PLAYER
+       6. MUSIC PLAYER STATE
     ===================================== */
 
     let musicAudio = null;
-
     let musicPlayRequested = false;
-
     let musicPausedForVideo = false;
 
     let musicPlay = null;
-
     let musicPause = null;
 
     function updateMusicStatus() {
-        const audio = $("#backgroundMusic");
         const button = $("#musicToggle");
         const title = $("#musicTitle");
         const status = $("#musicStatus");
 
         if (
-            !audio ||
+            !musicAudio ||
             !button ||
             !title ||
             !status
@@ -254,33 +247,33 @@ const MUSIC_PLAYLIST = [
             MUSIC_PLAYLIST[index] ||
             MUSIC_PLAYLIST[0];
 
-        if (!song) return;
-
         title.textContent = song.title;
 
         button.textContent =
-            audio.paused ? "▶" : "⏸";
+            musicAudio.paused ? "▶" : "⏸";
 
         button.setAttribute(
             "aria-label",
-            audio.paused
+            musicAudio.paused
                 ? "Putar musik"
                 : "Jeda musik"
         );
 
         status.textContent =
-            audio.paused
+            musicAudio.paused
                 ? "MUSIC OFF"
                 : "NOW PLAYING ♫";
     }
 
+    /* =====================================
+       7. INITIALIZE MUSIC
+    ===================================== */
+
     function initMusicPlayer() {
         const audio = $("#backgroundMusic");
-
         const toggle = $("#musicToggle");
         const previous = $("#musicPrev");
         const next = $("#musicNext");
-
         const status = $("#musicStatus");
 
         if (
@@ -288,16 +281,21 @@ const MUSIC_PLAYLIST = [
             !toggle ||
             !previous ||
             !next ||
-            !status ||
-            MUSIC_PLAYLIST.length === 0
+            !status
         ) {
             console.warn(
-                "Music player tidak ditemukan"
+                "Elemen music player tidak ditemukan."
             );
 
             return;
         }
 
+        // Jangan memasang listener dua kali.
+        if (audio.dataset.initialized === "true") {
+            return;
+        }
+
+        audio.dataset.initialized = "true";
         musicAudio = audio;
 
         let songIndex = Number(
@@ -316,9 +314,12 @@ const MUSIC_PLAYLIST = [
             storage.get("bising.music.time", 0)
         );
 
-        musicPlayRequested = storage.get(
-            "bising.music.playing",
-            false
+        if (!Number.isFinite(savedTime)) {
+            savedTime = 0;
+        }
+
+        musicPlayRequested = Boolean(
+            storage.get("bising.music.playing", false)
         );
 
         /* LOAD SONG */
@@ -328,11 +329,8 @@ const MUSIC_PLAYLIST = [
 
             savedTime = restore
                 ? Number(
-                    storage.get(
-                        "bising.music.time",
-                        0
-                    )
-                )
+                    storage.get("bising.music.time", 0)
+                ) || 0
                 : 0;
 
             audio.src = song.src;
@@ -367,7 +365,16 @@ const MUSIC_PLAYLIST = [
                 );
 
                 updateMusicStatus();
+
+                return true;
+
             } catch (error) {
+                console.error(
+                    "Gagal memutar musik:",
+                    error.name,
+                    error.message
+                );
+
                 musicPlayRequested = false;
 
                 storage.set(
@@ -375,15 +382,24 @@ const MUSIC_PLAYLIST = [
                     false
                 );
 
-                console.warn(
-                    "Audio gagal diputar:",
-                    error
-                );
-
                 updateMusicStatus();
 
-                status.textContent =
-                    "KLIK ▶ UNTUK PUTAR";
+                if (error.name === "NotAllowedError") {
+                    status.textContent =
+                        "KLIK ▶ UNTUK PUTAR";
+
+                } else if (
+                    error.name === "NotSupportedError"
+                ) {
+                    status.textContent =
+                        "FORMAT TIDAK DIDUKUNG";
+
+                } else {
+                    status.textContent =
+                        "GAGAL PUTAR LAGU";
+                }
+
+                return false;
             }
         }
 
@@ -411,7 +427,7 @@ const MUSIC_PLAYLIST = [
         musicPlay = play;
         musicPause = pause;
 
-        /* CHANGE SONG */
+        /* NEXT / PREVIOUS */
 
         function changeSong(direction) {
             songIndex = (
@@ -420,8 +436,7 @@ const MUSIC_PLAYLIST = [
                 MUSIC_PLAYLIST.length
             ) % MUSIC_PLAYLIST.length;
 
-            loadSong();
-
+            loadSong(false);
             play();
         }
 
@@ -443,13 +458,11 @@ const MUSIC_PLAYLIST = [
             changeSong(1);
         });
 
-        /* AUTO NEXT */
-
         audio.addEventListener("ended", () => {
             changeSong(1);
         });
 
-        /* RESTORE MUSIC POSITION */
+        /* RESTORE TIME */
 
         audio.addEventListener(
             "loadedmetadata",
@@ -461,25 +474,32 @@ const MUSIC_PLAYLIST = [
                     return;
                 }
 
-                if (
-                    Number.isFinite(audio.duration)
-                ) {
-                    audio.currentTime = Math.min(
-                        savedTime,
-                        Math.max(
-                            0,
-                            audio.duration - 0.5
-                        )
+                try {
+                    if (
+                        Number.isFinite(audio.duration)
+                    ) {
+                        audio.currentTime = Math.min(
+                            savedTime,
+                            Math.max(
+                                0,
+                                audio.duration - 0.5
+                            )
+                        );
+                    } else {
+                        audio.currentTime = savedTime;
+                    }
+                } catch (error) {
+                    console.warn(
+                        "Gagal restore waktu:",
+                        error
                     );
-                } else {
-                    audio.currentTime = savedTime;
                 }
 
                 savedTime = 0;
             }
         );
 
-        /* SAVE SONG POSITION */
+        /* SAVE CURRENT TIME */
 
         let lastSecond = -1;
 
@@ -490,9 +510,7 @@ const MUSIC_PLAYLIST = [
                     audio.currentTime
                 );
 
-                if (second === lastSecond) {
-                    return;
-                }
+                if (second === lastSecond) return;
 
                 lastSecond = second;
 
@@ -503,10 +521,10 @@ const MUSIC_PLAYLIST = [
             }
         );
 
-        /* UPDATE BUTTON DISPLAY */
+        /* DISPLAY EVENTS */
 
         audio.addEventListener(
-            "play",
+            "playing",
             updateMusicStatus
         );
 
@@ -520,10 +538,15 @@ const MUSIC_PLAYLIST = [
             () => {
                 status.textContent =
                     "FILE LAGU ERROR";
+
+                console.error(
+                    "File lagu gagal dibaca:",
+                    audio.currentSrc
+                );
             }
         );
 
-        /* SAVE WHEN BROWSER CLOSES */
+        /* SAVE WHEN EXIT */
 
         window.addEventListener(
             "pagehide",
@@ -540,26 +563,56 @@ const MUSIC_PLAYLIST = [
             }
         );
 
+        /* =================================
+           MUSIC CHOICE FROM INTRO
+        ================================= */
+
         loadSong(true);
 
-        if (musicPlayRequested) {
+        const introChoice = storage.get(
+            "bising.music.introChoice",
+            null
+        );
+
+        if (introChoice === true) {
+            musicPlayRequested = true;
+
+            /*
+               Browser mungkin menolak autoplay
+               sesudah pindah dari intro.html.
+            */
+
+            play();
+
+        } else if (introChoice === false) {
+            musicPlayRequested = false;
+
+            storage.set(
+                "bising.music.playing",
+                false
+            );
+
+            audio.pause();
+            updateMusicStatus();
+
+        } else if (musicPlayRequested) {
             status.textContent =
                 "KLIK ▶ UNTUK LANJUT";
         }
+
+        storage.remove(
+            "bising.music.introChoice"
+        );
     }
 
     /* =====================================
-       PHOTO / VIDEO VIEWER
+       8. VIEWER STATE
     ===================================== */
 
     let current = 0;
-
     let viewerOpen = false;
-
     let previousFocus = null;
-
     let touchStartX = null;
-
     let viewerItems = PHOTOS;
 
     function currentMedia() {
@@ -568,7 +621,6 @@ const MUSIC_PLAYLIST = [
 
     function syncViewerHeart() {
         const button = $("#viewerHeart");
-
         const item = currentMedia();
 
         if (!button || !item) return;
@@ -592,7 +644,7 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       CREATE VIDEO ELEMENT IF MISSING
+       9. VIDEO VIEWER + MUSIC
     ===================================== */
 
     function ensureViewerVideo() {
@@ -606,13 +658,9 @@ const MUSIC_PLAYLIST = [
             video = document.createElement("video");
 
             video.id = "viewerVideo";
-
             video.controls = true;
-
             video.playsInline = true;
-
             video.preload = "metadata";
-
             video.hidden = true;
 
             image.insertAdjacentElement(
@@ -627,20 +675,15 @@ const MUSIC_PLAYLIST = [
 
         video.dataset.musicBound = "true";
 
-        /* PAUSE MUSIC WHEN VIDEO PLAYS */
-
         video.addEventListener("play", () => {
             if (
                 musicAudio &&
                 !musicAudio.paused
             ) {
                 musicPausedForVideo = true;
-
                 musicAudio.pause();
             }
         });
-
-        /* RESUME WHEN VIDEO ENDS */
 
         video.addEventListener("ended", () => {
             resumeMusicAfterVideo();
@@ -653,7 +696,6 @@ const MUSIC_PLAYLIST = [
         musicPausedForVideo = false;
 
         if (
-            musicAudio &&
             musicPlayRequested &&
             typeof musicPlay === "function"
         ) {
@@ -662,7 +704,7 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       SHOW MEDIA
+       10. SHOW MEDIA
     ===================================== */
 
     function showMedia(index) {
@@ -675,57 +717,38 @@ const MUSIC_PLAYLIST = [
         const item = currentMedia();
 
         const image = $("#viewerImage");
-
         const video = $("#viewerVideo");
 
         if (!image) return;
 
-        /* RESET VIDEO */
-
         if (video) {
             video.pause();
-
             video.removeAttribute("src");
-
             video.load();
-
             video.hidden = true;
         }
 
-        /* RESET IMAGE */
-
         image.hidden = true;
-
         image.removeAttribute("src");
-
-        /* SHOW SELECTED MEDIA */
 
         if (
             item.type === "video" &&
             video
         ) {
             video.hidden = false;
-
             video.src = item.src;
-
             video.load();
 
         } else {
             image.hidden = false;
-
             image.src = item.src;
-
             image.alt = item.title;
 
             resumeMusicAfterVideo();
         }
 
-        /* VIEWER INFORMATION */
-
         const tag = $("#viewerTag");
-
         const label = $("#viewerLabel");
-
         const download = $("#viewerDownload");
 
         if (tag) {
@@ -743,16 +766,11 @@ const MUSIC_PLAYLIST = [
 
         if (download) {
             download.href = item.src;
-
             download.download = item.file;
         }
 
         syncViewerHeart();
     }
-
-    /* =====================================
-       OPEN MEDIA
-    ===================================== */
 
     function openMedia(
         item,
@@ -765,18 +783,14 @@ const MUSIC_PLAYLIST = [
         viewerItems = collection;
 
         const found = collection.findIndex(
-            (media) => {
-                return (
-                    media.type === item.type &&
-                    media.id === item.id
-                );
-            }
+            (media) =>
+                media.type === item.type &&
+                media.id === item.id
         );
 
         if (found === -1) return;
 
-        previousFocus =
-            document.activeElement;
+        previousFocus = document.activeElement;
 
         showMedia(found);
 
@@ -787,8 +801,7 @@ const MUSIC_PLAYLIST = [
             "false"
         );
 
-        document.body.style.overflow =
-            "hidden";
+        document.body.style.overflow = "hidden";
 
         viewerOpen = true;
 
@@ -803,10 +816,6 @@ const MUSIC_PLAYLIST = [
         }
     }
 
-    /* =====================================
-       CLOSE MEDIA VIEWER
-    ===================================== */
-
     function closeViewer() {
         if (!viewerOpen) return;
 
@@ -816,17 +825,13 @@ const MUSIC_PLAYLIST = [
 
         if (video) {
             video.pause();
-
             video.removeAttribute("src");
-
             video.load();
         }
 
-        const viewer = $("#photoViewer");
+        $("#photoViewer")?.classList.remove("open");
 
-        viewer?.classList.remove("open");
-
-        viewer?.setAttribute(
+        $("#photoViewer")?.setAttribute(
             "aria-hidden",
             "true"
         );
@@ -835,16 +840,13 @@ const MUSIC_PLAYLIST = [
 
         resumeMusicAfterVideo();
 
-        if (
-            previousFocus &&
-            previousFocus.isConnected
-        ) {
+        if (previousFocus?.isConnected) {
             previousFocus.focus();
         }
     }
 
     /* =====================================
-       INITIALIZE VIEWER
+       11. INITIALIZE VIEWER
     ===================================== */
 
     function initViewer() {
@@ -863,16 +865,12 @@ const MUSIC_PLAYLIST = [
 
         $("#viewerNext")?.addEventListener(
             "click",
-            () => {
-                showMedia(current + 1);
-            }
+            () => showMedia(current + 1)
         );
 
         $("#viewerPrev")?.addEventListener(
             "click",
-            () => {
-                showMedia(current - 1);
-            }
+            () => showMedia(current - 1)
         );
 
         $("#viewerHeart")?.addEventListener(
@@ -892,8 +890,6 @@ const MUSIC_PLAYLIST = [
             }
         );
 
-        /* KEYBOARD CONTROLS */
-
         document.addEventListener(
             "keydown",
             (event) => {
@@ -905,13 +901,11 @@ const MUSIC_PLAYLIST = [
 
                 if (event.key === "ArrowRight") {
                     event.preventDefault();
-
                     showMedia(current + 1);
                 }
 
                 if (event.key === "ArrowLeft") {
                     event.preventDefault();
-
                     showMedia(current - 1);
                 }
 
@@ -920,26 +914,24 @@ const MUSIC_PLAYLIST = [
                         ".viewer-shell button, " +
                         ".viewer-shell a, " +
                         ".viewer-shell video"
-                    ).filter((element) => {
-                        return (
+                    ).filter(
+                        (element) =>
                             !element.disabled &&
                             !element.hidden
-                        );
-                    });
+                    );
 
                     if (!controls.length) return;
 
                     const first = controls[0];
-
-                    const last =
-                        controls[controls.length - 1];
+                    const last = controls[
+                        controls.length - 1
+                    ];
 
                     if (
                         event.shiftKey &&
                         document.activeElement === first
                     ) {
                         event.preventDefault();
-
                         last.focus();
 
                     } else if (
@@ -947,14 +939,11 @@ const MUSIC_PLAYLIST = [
                         document.activeElement === last
                     ) {
                         event.preventDefault();
-
                         first.focus();
                     }
                 }
             }
         );
-
-        /* MOBILE SWIPE */
 
         const image = $("#viewerImage");
 
@@ -964,9 +953,7 @@ const MUSIC_PLAYLIST = [
                 touchStartX =
                     event.touches[0].clientX;
             },
-            {
-                passive: true
-            }
+            { passive: true }
         );
 
         image?.addEventListener(
@@ -978,9 +965,7 @@ const MUSIC_PLAYLIST = [
                     event.changedTouches[0].clientX -
                     touchStartX;
 
-                if (
-                    Math.abs(difference) > 42
-                ) {
+                if (Math.abs(difference) > 42) {
                     showMedia(
                         current +
                         (difference < 0 ? 1 : -1)
@@ -989,14 +974,12 @@ const MUSIC_PLAYLIST = [
 
                 touchStartX = null;
             },
-            {
-                passive: true
-            }
+            { passive: true }
         );
     }
 
     /* =====================================
-       HOME PAGE
+       12. HOME PAGE
     ===================================== */
 
     function initHome() {
@@ -1004,68 +987,50 @@ const MUSIC_PLAYLIST = [
 
         function mix() {
             const ids = shuffle(
-                PHOTOS.map((photo) => {
-                    return photo.id;
-                })
+                PHOTOS.map((photo) => photo.id)
             ).slice(0, 3);
 
-            cards.forEach(
-                (card, index) => {
-                    const image = $("img", card);
+            cards.forEach((card, index) => {
+                const image = $("img", card);
 
-                    card.style.opacity = "0.4";
+                card.style.opacity = "0.4";
 
-                    setTimeout(() => {
-                        if (!card.isConnected) return;
+                setTimeout(() => {
+                    if (!card.isConnected) return;
 
-                        const photo =
-                            PHOTOS[ids[index]];
+                    const photo = PHOTOS[ids[index]];
 
-                        if (!photo) return;
+                    if (!photo || !image) return;
 
-                        image.src = photo.src;
+                    image.src = photo.src;
+                    image.alt = photo.title;
 
-                        image.alt = photo.title;
+                    card.dataset.photo = photo.id;
 
-                        card.dataset.photo =
-                            photo.id;
+                    card.setAttribute(
+                        "aria-label",
+                        `Buka ${photo.title}`
+                    );
 
-                        card.setAttribute(
-                            "aria-label",
-                            `Buka ${photo.title}`
-                        );
-
-                        card.style.opacity = "1";
-                    }, 140);
-                }
-            );
+                    card.style.opacity = "1";
+                }, 140);
+            });
 
             burst(15);
         }
 
-        /* PHOTO CLICK */
-
         cards.forEach((card) => {
-            card.addEventListener(
-                "click",
-                () => {
-                    openViewer(
-                        Number(
-                            card.dataset.photo
-                        )
-                    );
-                }
-            );
+            card.addEventListener("click", () => {
+                openViewer(
+                    Number(card.dataset.photo)
+                );
+            });
         });
-
-        /* SHUFFLE */
 
         $("#shuffleStack")?.addEventListener(
             "click",
             mix
         );
-
-        /* MOUSE ANIMATION */
 
         const stage = $("#heroStage");
 
@@ -1077,11 +1042,7 @@ const MUSIC_PLAYLIST = [
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
-        if (
-            stage &&
-            canHover &&
-            !reducedMotion
-        ) {
+        if (stage && canHover && !reducedMotion) {
             stage.addEventListener(
                 "pointermove",
                 (event) => {
@@ -1089,24 +1050,15 @@ const MUSIC_PLAYLIST = [
                         stage.getBoundingClientRect();
 
                     const x =
-                        (
-                            event.clientX - rect.left
-                        ) / rect.width - 0.5;
+                        (event.clientX - rect.left) /
+                        rect.width - 0.5;
 
                     const y =
-                        (
-                            event.clientY - rect.top
-                        ) / rect.height - 0.5;
+                        (event.clientY - rect.top) /
+                        rect.height - 0.5;
 
-                    const first = $(
-                        ".scribble-1",
-                        stage
-                    );
-
-                    const second = $(
-                        ".scribble-2",
-                        stage
-                    );
+                    const first = $(".scribble-1", stage);
+                    const second = $(".scribble-2", stage);
 
                     if (first) {
                         first.style.translate =
@@ -1134,34 +1086,28 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       ALBUM PAGE
+       13. ALBUM
     ===================================== */
 
     let albumFilter = "all";
-
     let albumFilm = false;
-
     let albumLimit = 24;
 
     let albumOrder = MEDIA.map(
-        (item) => {
-            return mediaKey(item);
-        }
+        (item) => mediaKey(item)
     );
 
     let visibleAlbum = [];
 
-    /* GET FILTERED MEDIA */
-
     function getAlbumList() {
+        const mediaLookup = new Map(
+            MEDIA.map(
+                (item) => [mediaKey(item), item]
+            )
+        );
+
         return albumOrder
-            .map((key) => {
-                return MEDIA.find(
-                    (item) => {
-                        return mediaKey(item) === key;
-                    }
-                );
-            })
+            .map((key) => mediaLookup.get(key))
             .filter(Boolean)
             .filter((item) => {
                 if (albumFilter === "all") {
@@ -1180,13 +1126,9 @@ const MUSIC_PLAYLIST = [
                     return isFavorite(item);
                 }
 
-                return (
-                    item.category === albumFilter
-                );
+                return item.category === albumFilter;
             });
     }
-
-    /* RENDER ALBUM */
 
     function renderAlbum() {
         const grid = $("#albumGrid");
@@ -1203,12 +1145,11 @@ const MUSIC_PLAYLIST = [
         );
 
         const count = $("#photoCount");
+        const empty = $("#emptyGallery");
 
         if (count) {
             count.textContent = list.length;
         }
-
-        const empty = $("#emptyGallery");
 
         if (empty) {
             empty.hidden = list.length > 0;
@@ -1232,11 +1173,7 @@ const MUSIC_PLAYLIST = [
                         : "";
 
                 const tilt = [
-                    -1,
-                    1.2,
-                    -0.8,
-                    0.8,
-                    0
+                    -1, 1.2, -0.8, 0.8, 0
                 ][index % 5];
 
                 const ratio =
@@ -1246,13 +1183,10 @@ const MUSIC_PLAYLIST = [
 
                 const favorite = isFavorite(item);
 
-                /* VIDEO OR IMAGE */
-
                 const mediaContent =
                     item.type === "video"
                         ? `
                             <div class="video-thumbnail">
-
                                 <video
                                     src="${item.src}"
                                     preload="metadata"
@@ -1267,7 +1201,6 @@ const MUSIC_PLAYLIST = [
                                 <span class="video-label">
                                     VIDEO
                                 </span>
-
                             </div>
                         `
                         : `
@@ -1292,7 +1225,6 @@ const MUSIC_PLAYLIST = [
                         "
                         aria-label="Buka ${item.title}"
                     >
-
                         ${mediaContent}
 
                         <span class="photo-no">
@@ -1307,9 +1239,7 @@ const MUSIC_PLAYLIST = [
 
                         <button
                             class="photo-fav ${
-                                favorite
-                                    ? "is-fav"
-                                    : ""
+                                favorite ? "is-fav" : ""
                             }"
                             data-fav-type="${item.type}"
                             data-fav-id="${item.id}"
@@ -1322,13 +1252,10 @@ const MUSIC_PLAYLIST = [
                         >
                             ${favorite ? "♥" : "♡"}
                         </button>
-
                     </article>
                 `;
             }
         ).join("");
-
-        /* LOAD MORE */
 
         const loadMore = $("#albumLoadMore");
 
@@ -1344,12 +1271,8 @@ const MUSIC_PLAYLIST = [
         }
     }
 
-    /* ALBUM INITIALIZATION */
-
     function initAlbum() {
         renderAlbum();
-
-        /* FILTER BUTTONS */
 
         $("#albumFilters")?.addEventListener(
             "click",
@@ -1361,9 +1284,7 @@ const MUSIC_PLAYLIST = [
 
                 if (!button) return;
 
-                albumFilter =
-                    button.dataset.filter;
-
+                albumFilter = button.dataset.filter;
                 albumLimit = 24;
 
                 $$(
@@ -1380,24 +1301,16 @@ const MUSIC_PLAYLIST = [
             }
         );
 
-        /* SHUFFLE */
-
         $("#albumShuffle")?.addEventListener(
             "click",
             () => {
-                albumOrder = shuffle(
-                    albumOrder
-                );
+                albumOrder = shuffle(albumOrder);
 
                 renderAlbum();
 
-                toast(
-                    "DIACAK. TIDAK ADA ALASAN."
-                );
+                toast("DIACAK. TIDAK ADA ALASAN.");
             }
         );
-
-        /* FILMSTRIP MODE */
 
         $("#albumLayout")?.addEventListener(
             "click",
@@ -1414,13 +1327,10 @@ const MUSIC_PLAYLIST = [
             }
         );
 
-        /* LOAD MORE */
-
         $("#albumLoadMore")?.addEventListener(
             "click",
             () => {
                 albumLimit += 24;
-
                 renderAlbum();
             }
         );
@@ -1428,18 +1338,12 @@ const MUSIC_PLAYLIST = [
         const grid = $("#albumGrid");
 
         function getCardMedia(card) {
-            return MEDIA.find((item) => {
-                return (
-                    item.type ===
-                        card.dataset.type &&
-                    item.id === Number(
-                        card.dataset.id
-                    )
-                );
-            });
+            return MEDIA.find(
+                (item) =>
+                    item.type === card.dataset.type &&
+                    item.id === Number(card.dataset.id)
+            );
         }
-
-        /* OPEN MEDIA / FAVORITE */
 
         grid?.addEventListener(
             "click",
@@ -1453,15 +1357,12 @@ const MUSIC_PLAYLIST = [
                     event.stopPropagation();
 
                     const item = MEDIA.find(
-                        (media) => {
-                            return (
-                                media.type ===
-                                    favorite.dataset.favType &&
-                                media.id === Number(
-                                    favorite.dataset.favId
-                                )
-                            );
-                        }
+                        (media) =>
+                            media.type ===
+                                favorite.dataset.favType &&
+                            media.id === Number(
+                                favorite.dataset.favId
+                            )
                     );
 
                     if (item) {
@@ -1478,20 +1379,13 @@ const MUSIC_PLAYLIST = [
 
                 if (!card) return;
 
-                const item = getCardMedia(
-                    card
-                );
+                const item = getCardMedia(card);
 
                 if (item) {
-                    openMedia(
-                        item,
-                        visibleAlbum
-                    );
+                    openMedia(item, visibleAlbum);
                 }
             }
         );
-
-        /* KEYBOARD */
 
         grid?.addEventListener(
             "keydown",
@@ -1518,15 +1412,10 @@ const MUSIC_PLAYLIST = [
                 );
 
                 if (item) {
-                    openMedia(
-                        item,
-                        visibleAlbum
-                    );
+                    openMedia(item, visibleAlbum);
                 }
             }
         );
-
-        /* BACK TO TOP */
 
         $("#topAlbum")?.addEventListener(
             "click",
@@ -1540,17 +1429,13 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       PHOTOBOOTH
+       14. PHOTOBOOTH
     ===================================== */
 
     let boothIds = [1, 7, 12, 4];
-
     let boothSwatch = "lime";
-
     let boothLook = "normal";
-
     let boothBusy = false;
-
     let boothShuffleInterval = null;
 
     const swatchHex = {
@@ -1561,8 +1446,6 @@ const MUSIC_PLAYLIST = [
         white: "#fffaf0"
     };
 
-    /* UPDATE BOOTH */
-
     function updateBooth() {
         const grid = $("#stripPhotos");
 
@@ -1572,23 +1455,19 @@ const MUSIC_PLAYLIST = [
             `strip-photos look-${boothLook}`;
 
         grid.innerHTML = boothIds.map(
-            (id, slot) => {
-                return `
-                    <button
-                        type="button"
-                        class="strip-photo"
-                        data-slot="${slot}"
-                        title="Klik buat ganti"
+            (id, slot) => `
+                <button
+                    type="button"
+                    class="strip-photo"
+                    data-slot="${slot}"
+                    title="Klik buat ganti"
+                >
+                    <img
+                        src="${PHOTOS[id].src}"
+                        alt="Foto ${slot + 1}"
                     >
-
-                        <img
-                            src="${PHOTOS[id].src}"
-                            alt="Foto ${slot + 1}"
-                        >
-
-                    </button>
-                `;
-            }
+                </button>
+            `
         ).join("");
 
         $("#boothStrip").className =
@@ -1603,12 +1482,8 @@ const MUSIC_PLAYLIST = [
             new Date().getFullYear();
     }
 
-    /* INIT BOOTH */
-
     function initBooth() {
         updateBooth();
-
-        /* SWATCHES */
 
         $("#boothSwatches")?.addEventListener(
             "click",
@@ -1620,29 +1495,23 @@ const MUSIC_PLAYLIST = [
 
                 if (!button) return;
 
-                boothSwatch =
-                    button.dataset.swatch;
+                boothSwatch = button.dataset.swatch;
 
-                $$("[data-swatch]").forEach(
-                    (item) => {
-                        const active =
-                            item === button;
+                $$("[data-swatch]").forEach((item) => {
+                    const active = item === button;
 
-                        item.classList.toggle(
-                            "active",
-                            active
-                        );
+                    item.classList.toggle(
+                        "active",
+                        active
+                    );
 
-                        item.textContent =
-                            active ? "✓" : "";
-                    }
-                );
+                    item.textContent =
+                        active ? "✓" : "";
+                });
 
                 updateBooth();
             }
         );
-
-        /* FILTERS */
 
         $("#boothFilters")?.addEventListener(
             "click",
@@ -1654,30 +1523,23 @@ const MUSIC_PLAYLIST = [
 
                 if (!button) return;
 
-                boothLook =
-                    button.dataset.look;
+                boothLook = button.dataset.look;
 
-                $$("[data-look]").forEach(
-                    (item) => {
-                        item.classList.toggle(
-                            "active",
-                            item === button
-                        );
-                    }
-                );
+                $$("[data-look]").forEach((item) => {
+                    item.classList.toggle(
+                        "active",
+                        item === button
+                    );
+                });
 
                 updateBooth();
             }
         );
 
-        /* CAPTION */
-
         $("#boothCaption")?.addEventListener(
             "input",
             updateBooth
         );
-
-        /* CHANGE PHOTO */
 
         $("#stripPhotos")?.addEventListener(
             "click",
@@ -1687,25 +1549,16 @@ const MUSIC_PLAYLIST = [
                         "[data-slot]"
                     );
 
-                if (
-                    !button ||
-                    boothBusy
-                ) {
-                    return;
-                }
+                if (!button || boothBusy) return;
 
                 const slot = Number(
                     button.dataset.slot
                 );
 
-                let id = rand(
-                    PHOTOS.length
-                );
+                let id = rand(PHOTOS.length);
 
                 if (id === boothIds[slot]) {
-                    id = (
-                        id + 1
-                    ) % PHOTOS.length;
+                    id = (id + 1) % PHOTOS.length;
                 }
 
                 boothIds[slot] = id;
@@ -1714,8 +1567,6 @@ const MUSIC_PLAYLIST = [
             }
         );
 
-        /* SHUFFLE PHOTOS */
-
         $("#boothShuffle")?.addEventListener(
             "click",
             () => {
@@ -1723,8 +1574,7 @@ const MUSIC_PLAYLIST = [
 
                 boothBusy = true;
 
-                const button =
-                    $("#boothShuffle");
+                const button = $("#boothShuffle");
 
                 button.disabled = true;
 
@@ -1756,24 +1606,18 @@ const MUSIC_PLAYLIST = [
                             );
 
                             boothShuffleInterval = null;
-
                             boothBusy = false;
-
                             button.disabled = false;
 
                             updateBooth();
 
-                            toast(
-                                "TADAA! FOTO BARU"
-                            );
+                            toast("TADAA! FOTO BARU");
                         }
                     },
                     80
                 );
             }
         );
-
-        /* DOWNLOAD */
 
         $("#boothSave")?.addEventListener(
             "click",
@@ -1782,23 +1626,17 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       SAVE PHOTOBOOTH PNG
+       15. SAVE PHOTOBOOTH PNG
     ===================================== */
 
     function loadImage(src) {
-        return new Promise(
-            (resolve, reject) => {
-                const image = new Image();
+        return new Promise((resolve, reject) => {
+            const image = new Image();
 
-                image.onload = () => {
-                    resolve(image);
-                };
-
-                image.onerror = reject;
-
-                image.src = src;
-            }
-        );
+            image.onload = () => resolve(image);
+            image.onerror = reject;
+            image.src = src;
+        });
     }
 
     function canvasCover(
@@ -1822,12 +1660,8 @@ const MUSIC_PLAYLIST = [
 
         ctx.drawImage(
             image,
-            x + (
-                width - drawWidth
-            ) / 2,
-            y + (
-                height - drawHeight
-            ) / 2,
+            x + (width - drawWidth) / 2,
+            y + (height - drawHeight) / 2,
             drawWidth,
             drawHeight
         );
@@ -1837,22 +1671,16 @@ const MUSIC_PLAYLIST = [
         if (boothBusy) return;
 
         const status = $("#boothStatus");
-
         const button = $("#boothSave");
 
         button.disabled = true;
-
         status.textContent =
             "BENTAR, LAGI NYETAK...";
 
         try {
             const pictures = await Promise.all(
                 boothIds.map(
-                    (id) => {
-                        return loadImage(
-                            PHOTOS[id].src
-                        );
-                    }
+                    (id) => loadImage(PHOTOS[id].src)
                 )
             );
 
@@ -1862,19 +1690,13 @@ const MUSIC_PLAYLIST = [
             canvas.width = 720;
             canvas.height = 1610;
 
-            const ctx =
-                canvas.getContext("2d");
+            const ctx = canvas.getContext("2d");
 
             if (!ctx) {
-                throw Error(
-                    "Canvas tidak tersedia"
-                );
+                throw Error("Canvas tidak tersedia");
             }
 
-            /* BACKGROUND */
-
-            ctx.fillStyle =
-                swatchHex[boothSwatch];
+            ctx.fillStyle = swatchHex[boothSwatch];
 
             ctx.fillRect(
                 0,
@@ -1883,80 +1705,53 @@ const MUSIC_PLAYLIST = [
                 canvas.height
             );
 
-            /* TITLE */
-
             ctx.fillStyle = "#161616";
-
             ctx.textAlign = "center";
 
             ctx.font =
                 "bold 64px Impact, Arial Black, sans-serif";
 
-            ctx.fillText(
-                "B!  CLUB.",
-                360,
-                85
-            );
-
-            /* FILTERS */
+            ctx.fillText("B!  CLUB.", 360, 85);
 
             const filters = {
                 normal: "none",
-                bw:
-                    "grayscale(1) contrast(1.15)",
+                bw: "grayscale(1) contrast(1.15)",
                 retro:
                     "sepia(.7) saturate(.8) contrast(1.15)",
                 pop:
                     "saturate(2.2) contrast(1.2)"
             };
 
-            /* DRAW PICTURES */
+            pictures.forEach((image, index) => {
+                const y = 115 + index * 322;
 
-            pictures.forEach(
-                (image, index) => {
-                    const y =
-                        115 + index * 322;
+                ctx.fillStyle = "#161616";
 
-                    ctx.fillStyle =
-                        "#161616";
+                ctx.fillRect(
+                    34,
+                    y - 4,
+                    652,
+                    303
+                );
 
-                    ctx.fillRect(
-                        34,
-                        y - 4,
-                        652,
-                        303
-                    );
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(40, y, 640, 291);
+                ctx.clip();
 
-                    ctx.save();
+                ctx.filter = filters[boothLook];
 
-                    ctx.beginPath();
+                canvasCover(
+                    ctx,
+                    image,
+                    40,
+                    y,
+                    640,
+                    291
+                );
 
-                    ctx.rect(
-                        40,
-                        y,
-                        640,
-                        291
-                    );
-
-                    ctx.clip();
-
-                    ctx.filter =
-                        filters[boothLook];
-
-                    canvasCover(
-                        ctx,
-                        image,
-                        40,
-                        y,
-                        640,
-                        291
-                    );
-
-                    ctx.restore();
-                }
-            );
-
-            /* CAPTION */
+                ctx.restore();
+            });
 
             ctx.fillStyle = "#161616";
 
@@ -1975,8 +1770,7 @@ const MUSIC_PLAYLIST = [
                 650
             );
 
-            ctx.font =
-                "bold 23px monospace";
+            ctx.font = "bold 23px monospace";
 
             ctx.fillText(
                 `✳ BISING CLUB / ${
@@ -1986,8 +1780,6 @@ const MUSIC_PLAYLIST = [
                 1520
             );
 
-            /* PNG BLOB */
-
             const blob = await new Promise(
                 (resolve, reject) => {
                     canvas.toBlob(
@@ -1996,9 +1788,7 @@ const MUSIC_PLAYLIST = [
                                 resolve(result);
                             } else {
                                 reject(
-                                    Error(
-                                        "PNG gagal dibuat"
-                                    )
+                                    Error("PNG gagal dibuat")
                                 );
                             }
                         },
@@ -2007,41 +1797,24 @@ const MUSIC_PLAYLIST = [
                 }
             );
 
-            /* DOWNLOAD */
-
-            const url =
-                URL.createObjectURL(blob);
-
-            const link =
-                document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
 
             link.href = url;
-
-            link.download =
-                "bising-photobooth.png";
+            link.download = "bising-photobooth.png";
 
             document.body.append(link);
-
             link.click();
-
             link.remove();
 
-            setTimeout(
-                () => {
-                    URL.revokeObjectURL(
-                        url
-                    );
-                },
-                3000
-            );
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 3000);
 
             status.textContent =
                 "SELESAI! CEK DOWNLOAD.";
 
-            toast(
-                "FOTO STRIP DISIMPAN!"
-            );
-
+            toast("FOTO STRIP DISIMPAN!");
             burst(20);
 
         } catch (error) {
@@ -2050,9 +1823,7 @@ const MUSIC_PLAYLIST = [
             status.textContent =
                 "GAGAL NYETAK. COBA VIA LIVE SERVER.";
 
-            toast(
-                "GAGAL SIMPAN FOTO"
-            );
+            toast("GAGAL SIMPAN FOTO");
 
         } finally {
             button.disabled = false;
@@ -2060,75 +1831,49 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       MEMORY GAME
+       16. MEMORY GAME
     ===================================== */
 
     let memoryTimer = null;
-
     let memoryStart = 0;
-
     let memoryMoves = 0;
-
     let memoryMatches = 0;
-
     let memoryFlipped = [];
-
     let memoryLocked = false;
-
     let memoryFlipTimeout = null;
-
     let memoryFinished = false;
 
     function fmtTime(seconds) {
-        const minutes = Math.floor(
-            seconds / 60
-        );
+        const minutes = Math.floor(seconds / 60);
 
         return (
             String(minutes).padStart(2, "0") +
             ":" +
-            String(
-                seconds % 60
-            ).padStart(2, "0")
+            String(seconds % 60).padStart(2, "0")
         );
     }
 
-    /* INITIALIZE MEMORY */
-
     function initMemory() {
         clearInterval(memoryTimer);
-
-        clearTimeout(
-            memoryFlipTimeout
-        );
+        clearTimeout(memoryFlipTimeout);
 
         memoryTimer = null;
-
         memoryFlipTimeout = null;
 
         memoryMoves = 0;
-
         memoryMatches = 0;
-
         memoryFlipped = [];
-
         memoryLocked = false;
-
         memoryFinished = false;
 
-        $("#memoryMoves").textContent =
-            "0";
-
-        $("#memoryTime").textContent =
-            "00:00";
+        $("#memoryMoves").textContent = "0";
+        $("#memoryTime").textContent = "00:00";
 
         $("#memoryMessage").textContent =
             "Cari 6 pasangan. Jangan ngasal.";
 
         const chosen = shuffle(
-            PHOTOS.map(
-                (photo) => photo.id
-            )
+            PHOTOS.map((photo) => photo.id)
         ).slice(0, 6);
 
         const deck = shuffle([
@@ -2136,123 +1881,85 @@ const MUSIC_PLAYLIST = [
             ...chosen
         ]);
 
-        $("#memoryGrid").innerHTML =
-            deck.map((id) => {
-                return `
-                    <button
-                        type="button"
-                        class="memory-card"
-                        data-memory="${id}"
-                        aria-label="Buka kartu"
-                    >
+        $("#memoryGrid").innerHTML = deck.map(
+            (id) => `
+                <button
+                    type="button"
+                    class="memory-card"
+                    data-memory="${id}"
+                    aria-label="Buka kartu"
+                >
+                    <span class="memory-inner">
 
-                        <span class="memory-inner">
-
-                            <span class="memory-front">
-                                ✳
-                            </span>
-
-                            <span class="memory-back">
-
-                                <img
-                                    src="${PHOTOS[id].src}"
-                                    alt="Foto pasangan"
-                                >
-
-                            </span>
-
+                        <span class="memory-front">
+                            ✳
                         </span>
 
-                    </button>
-                `;
-            }).join("");
-    }
+                        <span class="memory-back">
+                            <img
+                                src="${PHOTOS[id].src}"
+                                alt="Foto pasangan"
+                            >
+                        </span>
 
-    /* FLIP CARD */
+                    </span>
+                </button>
+            `
+        ).join("");
+    }
 
     function flipMemory(card) {
         if (
             memoryLocked ||
             memoryFinished ||
-            card.classList.contains(
-                "flipped"
-            ) ||
-            card.classList.contains(
-                "matched"
-            )
+            card.classList.contains("flipped") ||
+            card.classList.contains("matched")
         ) {
             return;
         }
-
-        /* START TIMER */
 
         if (!memoryTimer) {
             memoryStart = Date.now();
 
-            memoryTimer = setInterval(
-                () => {
-                    const seconds = Math.floor(
-                        (
-                            Date.now() -
-                            memoryStart
-                        ) / 1000
-                    );
+            memoryTimer = setInterval(() => {
+                const seconds = Math.floor(
+                    (Date.now() - memoryStart) / 1000
+                );
 
-                    const time =
-                        $("#memoryTime");
+                const time = $("#memoryTime");
 
-                    if (time) {
-                        time.textContent =
-                            fmtTime(seconds);
-                    }
-                },
-                500
-            );
+                if (time) {
+                    time.textContent = fmtTime(seconds);
+                }
+            }, 500);
         }
 
         card.classList.add("flipped");
-
         memoryFlipped.push(card);
 
-        if (
-            memoryFlipped.length !== 2
-        ) {
-            return;
-        }
+        if (memoryFlipped.length !== 2) return;
 
         memoryMoves++;
 
         $("#memoryMoves").textContent =
             memoryMoves;
 
-        const [first, second] =
-            memoryFlipped;
-
-        /* MATCH */
+        const [first, second] = memoryFlipped;
 
         if (
             first.dataset.memory ===
             second.dataset.memory
         ) {
-            first.classList.add(
-                "matched"
-            );
-
-            second.classList.add(
-                "matched"
-            );
+            first.classList.add("matched");
+            second.classList.add("matched");
 
             memoryFlipped = [];
-
             memoryMatches++;
 
             if (memoryMatches === 6) {
-                clearInterval(
-                    memoryTimer
-                );
+                clearInterval(memoryTimer);
 
                 memoryTimer = null;
-
                 memoryFinished = true;
 
                 $("#memoryMessage").textContent =
@@ -2260,39 +1967,25 @@ const MUSIC_PLAYLIST = [
 
                 burst(80);
 
-                toast(
-                    "GOKIL. INGATAN MASIH AMAN."
-                );
+                toast("GOKIL. INGATAN MASIH AMAN.");
             }
 
         } else {
-            /* NOT MATCHED */
-
             memoryLocked = true;
 
-            memoryFlipTimeout = setTimeout(
-                () => {
-                    first.classList.remove(
-                        "flipped"
-                    );
+            memoryFlipTimeout = setTimeout(() => {
+                first.classList.remove("flipped");
+                second.classList.remove("flipped");
 
-                    second.classList.remove(
-                        "flipped"
-                    );
-
-                    memoryFlipped = [];
-
-                    memoryLocked = false;
-
-                    memoryFlipTimeout = null;
-                },
-                850
-            );
+                memoryFlipped = [];
+                memoryLocked = false;
+                memoryFlipTimeout = null;
+            }, 850);
         }
     }
 
     /* =====================================
-       ROULETTE
+       17. ROULETTE
     ===================================== */
 
     let spinInterval = null;
@@ -2301,68 +1994,47 @@ const MUSIC_PLAYLIST = [
         if (spinInterval) return;
 
         const button = $("#rouletteSpin");
-
         const image = $("#rouletteImg");
-
         const frame = $("#roulettePhoto");
 
         button.disabled = true;
-
-        frame.classList.add(
-            "spinning"
-        );
+        frame.classList.add("spinning");
 
         let iterations = 0;
 
-        spinInterval = setInterval(
-            () => {
-                const randomPhoto =
-                    PHOTOS[
-                        rand(PHOTOS.length)
-                    ];
+        spinInterval = setInterval(() => {
+            const randomPhoto =
+                PHOTOS[rand(PHOTOS.length)];
 
-                image.src =
-                    randomPhoto.src;
+            image.src = randomPhoto.src;
+
+            $("#rouletteName").textContent = "???";
+
+            iterations++;
+
+            if (iterations >= 22) {
+                clearInterval(spinInterval);
+
+                spinInterval = null;
+
+                const selected =
+                    PHOTOS[rand(PHOTOS.length)];
+
+                image.src = selected.src;
 
                 $("#rouletteName").textContent =
-                    "???";
+                    `FOTO #${String(
+                        selected.id + 1
+                    ).padStart(2, "0")}`;
 
-                iterations++;
+                frame.classList.remove("spinning");
 
-                if (iterations >= 22) {
-                    clearInterval(
-                        spinInterval
-                    );
+                button.disabled = false;
 
-                    spinInterval = null;
-
-                    const selected =
-                        PHOTOS[
-                            rand(PHOTOS.length)
-                        ];
-
-                    image.src =
-                        selected.src;
-
-                    $("#rouletteName").textContent =
-                        `FOTO #${String(
-                            selected.id + 1
-                        ).padStart(2, "0")}`;
-
-                    frame.classList.remove(
-                        "spinning"
-                    );
-
-                    button.disabled = false;
-
-                    burst(23);
-                }
-            },
-            75
-        );
+                burst(23);
+            }
+        }, 75);
     }
-
-    /* INITIALIZE ARCADE */
 
     function initArcade() {
         initMemory();
@@ -2371,7 +2043,6 @@ const MUSIC_PLAYLIST = [
             "click",
             () => {
                 initMemory();
-
                 toast("RESET!");
             }
         );
@@ -2397,52 +2068,16 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       WALL DEFAULT DATA
+       18. WALL DEFAULT DATA
     ===================================== */
 
     const defaultPhotos = [
-        {
-            id: "p0",
-            photo: 0,
-            x: 14,
-            y: 20,
-            a: -11
-        },
-        {
-            id: "p1",
-            photo: 7,
-            x: 39,
-            y: 27,
-            a: 8
-        },
-        {
-            id: "p2",
-            photo: 3,
-            x: 72,
-            y: 23,
-            a: -9
-        },
-        {
-            id: "p3",
-            photo: 12,
-            x: 22,
-            y: 65,
-            a: 5
-        },
-        {
-            id: "p4",
-            photo: 10,
-            x: 57,
-            y: 60,
-            a: -8
-        },
-        {
-            id: "p5",
-            photo: 16,
-            x: 84,
-            y: 68,
-            a: 9
-        }
+        { id: "p0", photo: 0, x: 14, y: 20, a: -11 },
+        { id: "p1", photo: 7, x: 39, y: 27, a: 8 },
+        { id: "p2", photo: 3, x: 72, y: 23, a: -9 },
+        { id: "p3", photo: 12, x: 22, y: 65, a: 5 },
+        { id: "p4", photo: 10, x: 57, y: 60, a: -8 },
+        { id: "p5", photo: 16, x: 84, y: 68, a: 9 }
     ];
 
     const defaultNotes = [
@@ -2464,23 +2099,15 @@ const MUSIC_PLAYLIST = [
 
     let boardPhotos = storage.get(
         "bising.board.photos",
-        defaultPhotos.map(
-            (item) => ({ ...item })
-        )
+        defaultPhotos.map((item) => ({ ...item }))
     );
 
     let boardNotes = storage.get(
         "bising.board.notes",
-        defaultNotes.map(
-            (item) => ({ ...item })
-        )
+        defaultNotes.map((item) => ({ ...item }))
     );
 
     let boardZ = 10;
-
-    /* =====================================
-       SAVE WALL
-    ===================================== */
 
     function saveBoard() {
         storage.set(
@@ -2495,7 +2122,7 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       RENDER WALL
+       19. RENDER WALL
     ===================================== */
 
     function drawBoard() {
@@ -2505,24 +2132,18 @@ const MUSIC_PLAYLIST = [
 
         root.innerHTML = "";
 
-        /* PHOTOS */
-
         boardPhotos.forEach((item) => {
-            const photo =
-                PHOTOS[item.photo];
+            const photo = PHOTOS[item.photo];
 
             if (!photo) return;
 
             const element =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
             element.className =
                 "board-item board-polaroid";
 
-            element.dataset.id =
-                item.id;
+            element.dataset.id = item.id;
 
             element.style.cssText = `
                 left: ${item.x}%;
@@ -2546,24 +2167,17 @@ const MUSIC_PLAYLIST = [
                 </div>
             `;
 
-            root.append(
-                element
-            );
+            root.append(element);
         });
-
-        /* NOTES */
 
         boardNotes.forEach((item) => {
             const element =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
             element.className =
                 "board-item board-note";
 
-            element.dataset.id =
-                item.id;
+            element.dataset.id = item.id;
 
             element.style.cssText = `
                 left: ${item.x}%;
@@ -2572,23 +2186,15 @@ const MUSIC_PLAYLIST = [
             `;
 
             const text =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
-            text.textContent =
-                item.text;
+            text.textContent = item.text;
 
             const remove =
-                document.createElement(
-                    "button"
-                );
+                document.createElement("button");
 
-            remove.className =
-                "note-remove";
-
+            remove.className = "note-remove";
             remove.type = "button";
-
             remove.textContent = "×";
 
             remove.setAttribute(
@@ -2601,80 +2207,56 @@ const MUSIC_PLAYLIST = [
                 (event) => {
                     event.stopPropagation();
 
-                    boardNotes =
-                        boardNotes.filter(
-                            (note) => {
-                                return (
-                                    note.id !==
-                                    item.id
-                                );
-                            }
-                        );
+                    boardNotes = boardNotes.filter(
+                        (note) => note.id !== item.id
+                    );
 
                     saveBoard();
-
                     drawBoard();
 
-                    toast(
-                        "NOTE DIHAPUS"
-                    );
+                    toast("NOTE DIHAPUS");
                 }
             );
 
-            element.append(
-                text,
-                remove
-            );
+            element.append(text, remove);
 
-            root.append(
-                element
-            );
+            root.append(element);
         });
     }
 
     /* =====================================
-       WALL INTERACTIONS
+       20. WALL INTERACTIONS
     ===================================== */
 
     function initWall() {
         drawBoard();
 
         const board = $("#wallBoard");
-
-        const objects =
-            $("#boardObjects");
+        const objects = $("#boardObjects");
 
         let dragging = null;
-
-        /* POINTER DOWN */
 
         objects.addEventListener(
             "pointerdown",
             (event) => {
                 if (
-                    event.target.closest(
-                        ".note-remove"
-                    )
+                    event.target.closest(".note-remove")
                 ) {
                     return;
                 }
 
                 const element =
-                    event.target.closest(
-                        ".board-item"
-                    );
+                    event.target.closest(".board-item");
 
                 if (!element) return;
 
                 const item = [
                     ...boardPhotos,
                     ...boardNotes
-                ].find((value) => {
-                    return (
-                        value.id ===
-                        element.dataset.id
-                    );
-                });
+                ].find(
+                    (value) =>
+                        value.id === element.dataset.id
+                );
 
                 if (!item) return;
 
@@ -2682,18 +2264,14 @@ const MUSIC_PLAYLIST = [
                     event.pointerId
                 );
 
-                element.style.zIndex =
-                    ++boardZ;
+                element.style.zIndex = ++boardZ;
 
                 dragging = {
                     item,
                     element,
-                    pointerId:
-                        event.pointerId,
-                    startX:
-                        event.clientX,
-                    startY:
-                        event.clientY,
+                    pointerId: event.pointerId,
+                    startX: event.clientX,
+                    startY: event.clientY,
                     x: item.x,
                     y: item.y,
                     moved: false
@@ -2701,15 +2279,12 @@ const MUSIC_PLAYLIST = [
             }
         );
 
-        /* POINTER MOVE */
-
         objects.addEventListener(
             "pointermove",
             (event) => {
                 if (
                     !dragging ||
-                    dragging.pointerId !==
-                        event.pointerId
+                    dragging.pointerId !== event.pointerId
                 ) {
                     return;
                 }
@@ -2724,105 +2299,72 @@ const MUSIC_PLAYLIST = [
                 } = dragging;
 
                 const dx =
-                    event.clientX -
-                    startX;
+                    event.clientX - startX;
 
                 const dy =
-                    event.clientY -
-                    startY;
+                    event.clientY - startY;
 
-                if (
-                    Math.abs(dx) +
-                    Math.abs(dy) > 5
-                ) {
+                if (Math.abs(dx) + Math.abs(dy) > 5) {
                     dragging.moved = true;
                 }
 
-                if (
-                    !dragging.moved
-                ) {
-                    return;
-                }
+                if (!dragging.moved) return;
 
                 const box =
                     board.getBoundingClientRect();
 
                 item.x = clamp(
-                    x +
-                    dx / box.width * 100,
+                    x + dx / box.width * 100,
                     8,
                     92
                 );
 
                 item.y = clamp(
-                    y +
-                    dy / box.height * 100,
+                    y + dy / box.height * 100,
                     10,
                     90
                 );
 
-                element.style.left =
-                    `${item.x}%`;
-
-                element.style.top =
-                    `${item.y}%`;
+                element.style.left = `${item.x}%`;
+                element.style.top = `${item.y}%`;
 
                 event.preventDefault();
             }
         );
-
-        /* POINTER UP */
 
         objects.addEventListener(
             "pointerup",
             (event) => {
                 if (
                     !dragging ||
-                    dragging.pointerId !==
-                        event.pointerId
+                    dragging.pointerId !== event.pointerId
                 ) {
                     return;
                 }
 
-                const moved =
-                    dragging.moved;
-
-                const id =
-                    dragging.item.id;
+                const moved = dragging.moved;
+                const id = dragging.item.id;
 
                 dragging = null;
 
                 saveBoard();
 
-                if (
-                    !moved &&
-                    id.startsWith("p")
-                ) {
-                    const photo =
-                        boardPhotos.find(
-                            (item) => {
-                                return (
-                                    item.id === id
-                                );
-                            }
-                        );
+                if (!moved && id.startsWith("p")) {
+                    const photo = boardPhotos.find(
+                        (item) => item.id === id
+                    );
 
                     if (photo) {
-                        openViewer(
-                            photo.photo
-                        );
+                        openViewer(photo.photo);
                     }
                 }
             }
         );
 
-        /* POINTER CANCEL */
-
         objects.addEventListener(
             "pointercancel",
             () => {
                 dragging = null;
-
                 saveBoard();
             }
         );
@@ -2834,11 +2376,8 @@ const MUSIC_PLAYLIST = [
             (event) => {
                 event.preventDefault();
 
-                const input =
-                    $("#wallNote");
-
-                const value =
-                    input.value.trim();
+                const input = $("#wallNote");
+                const value = input.value.trim();
 
                 if (!value) return;
 
@@ -2852,40 +2391,33 @@ const MUSIC_PLAYLIST = [
                     text: value,
 
                     x: clamp(
-                        28 +
-                        Math.random() * 42,
+                        28 + Math.random() * 42,
                         15,
                         80
                     ),
 
                     y: clamp(
-                        30 +
-                        Math.random() * 32,
+                        30 + Math.random() * 32,
                         20,
                         75
                     ),
 
                     a: Math.round(
-                        (
-                            Math.random() -
-                            0.5
-                        ) * 19
+                        (Math.random() - 0.5) * 19
                     )
                 });
 
                 saveBoard();
-
                 drawBoard();
 
                 input.value = "";
 
                 toast("DITEMPEL!");
-
                 burst(15);
             }
         );
 
-        /* SCATTER BOARD */
+        /* SCATTER */
 
         $("#wallScatter")?.addEventListener(
             "click",
@@ -2895,75 +2427,58 @@ const MUSIC_PLAYLIST = [
                     ...boardNotes
                 ].forEach((item) => {
                     item.x =
-                        12 +
-                        Math.random() * 76;
+                        12 + Math.random() * 76;
 
                     item.y =
-                        14 +
-                        Math.random() * 72;
+                        14 + Math.random() * 72;
 
                     item.a = Math.round(
-                        (
-                            Math.random() -
-                            0.5
-                        ) * 35
+                        (Math.random() - 0.5) * 35
                     );
                 });
 
                 saveBoard();
-
                 drawBoard();
 
-                toast(
-                    "KOCOK PAPAN!"
-                );
+                toast("KOCOK PAPAN!");
             }
         );
 
-        /* RESET BOARD */
+        /* RESET */
 
         $("#wallReset")?.addEventListener(
             "click",
             () => {
-                const confirmed =
-                    confirm(
+                if (
+                    !confirm(
                         "Balikin papan ke posisi awal? Note tambahan bakal hilang."
-                    );
+                    )
+                ) {
+                    return;
+                }
 
-                if (!confirmed) return;
+                boardPhotos = defaultPhotos.map(
+                    (item) => ({ ...item })
+                );
 
-                boardPhotos =
-                    defaultPhotos.map(
-                        (item) => ({
-                            ...item
-                        })
-                    );
-
-                boardNotes =
-                    defaultNotes.map(
-                        (item) => ({
-                            ...item
-                        })
-                    );
+                boardNotes = defaultNotes.map(
+                    (item) => ({ ...item })
+                );
 
                 saveBoard();
-
                 drawBoard();
 
-                toast(
-                    "BALIK KE AWAL"
-                );
+                toast("BALIK KE AWAL");
             }
         );
     }
 
     /* =====================================
-       SPA PAGE INITIALIZATION
+       21. INITIALIZE CURRENT PAGE
     ===================================== */
 
     function initCurrentPage() {
-        page =
-            document.body.dataset.page;
+        page = document.body.dataset.page;
 
         switch (page) {
             case "home":
@@ -2995,108 +2510,65 @@ const MUSIC_PLAYLIST = [
     }
 
     /* =====================================
-       BEFORE SPA NAVIGATION
-
-       CLEAN UP OLD PAGE
+       22. BEFORE SPA NAVIGATION
     ===================================== */
 
     window.BisingBeforeNavigate = () => {
-
-        /* CLOSE VIEWER */
-
         closeViewer();
 
-        /* STOP MEMORY TIMER */
-
-        clearInterval(
-            memoryTimer
-        );
-
-        clearTimeout(
-            memoryFlipTimeout
-        );
+        clearInterval(memoryTimer);
+        clearTimeout(memoryFlipTimeout);
 
         memoryTimer = null;
-
         memoryFlipTimeout = null;
-
         memoryLocked = false;
-
         memoryFlipped = [];
 
-        /* STOP ROULETTE */
-
-        clearInterval(
-            spinInterval
-        );
-
+        clearInterval(spinInterval);
         spinInterval = null;
 
-        /* STOP PHOTOBOOTH SHUFFLE */
-
-        clearInterval(
-            boothShuffleInterval
-        );
-
+        clearInterval(boothShuffleInterval);
         boothShuffleInterval = null;
-
         boothBusy = false;
-
-        /* SAVE WALL DATA */
 
         if (page === "wall") {
             saveBoard();
         }
 
         /*
-           MUSIK TIDAK DI-PAUSE.
-           AUDIO ELEMENT TETAP ADA.
+           Musik tidak dihentikan.
+           Elemen audio berada di luar <main>.
         */
     };
 
     /* =====================================
-       AFTER SPA NAVIGATION
-
-       INITIALIZE NEW PAGE
+       23. AFTER SPA NAVIGATION
     ===================================== */
 
     window.BisingAfterNavigate = () => {
-
-        /* RESET PAGE-SPECIFIC ALBUM STATE */
-
         if (
             document.body.dataset.page === "album"
         ) {
             albumFilter = "all";
-
             albumFilm = false;
-
             albumLimit = 24;
         }
-
-        /* INITIALIZE NEW PAGE */
 
         initCurrentPage();
 
         /*
-           TIDAK MEMANGGIL initMusicPlayer()
-           LAGI SUPAYA MUSIK TIDAK RESTART.
+           Jangan memanggil initMusicPlayer()
+           lagi di sini.
         */
     };
 
     /* =====================================
-       INITIALIZE APPLICATION
+       24. INITIALIZE APPLICATION
     ===================================== */
-
-    /* VIEWER */
 
     initViewer();
 
-    /* MUSIC PLAYER */
-
     initMusicPlayer();
-
-    /* INITIAL PAGE */
 
     initCurrentPage();
 
