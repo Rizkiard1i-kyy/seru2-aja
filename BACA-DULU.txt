@@ -1,0 +1,52 @@
+BISING! CLUB — WEB FOTO SATU GENG
+================================
+
+CARA BUKA
+1. Ekstrak semua isi ZIP.
+2. Buka index.html pakai Chrome, Edge, atau Firefox.
+3. Navigasi: START | ALBUM | BOOTH | ARCADE | WALL.
+   Di HP, menunya pindah ke bawah kayak aplikasi.
+
+ISI WEBSITE
+- START: foto bertumpuk yang bisa diklik & diacak.
+- ALBUM: 17 foto, filter kategori, favorit, layout grid / filmstrip,
+  popup foto, navigasi keyboard, dan tombol unduh.
+- BOOTH: acak 4 foto, ganti warna/filter/tulisan, ekspor PNG.
+- ARCADE: game memory foto (6 pasang) + roulette foto.
+- WALL: geser foto, tambah dan hapus sticky notes, acak papan.
+
+FOTO
+Semua 17 foto dari foto.zip sudah dimasukkan otomatis ke:
+aset/image/foto-01.jpg sampai foto-17.jpg
+
+Ganti foto: timpa nama file yang sama dengan foto milikmu (JPG).
+Ganti tulisan/kategori: buka aset/js/data.js dan edit isinya.
+Tambah foto baru: simpan di aset/image, lalu tambah satu baris
+baru di daftar PHOTOS pada aset/js/data.js.
+Kategori yang tersedia: rame, jalan, acara.
+
+Folder:
+index.html
+album.html
+booth.html
+arcade.html
+wall.html
+aset/
+  css/style.css
+  js/data.js
+  js/app.js
+  image/foto-01.jpg ... foto-17.jpg
+
+CATATAN
+- Website statis, tidak memakai database maupun server online.
+- Favorit dan catatan papan tersimpan secara lokal di browser
+  masing-masing, jadi tidak sinkron antar HP.
+- Photobooth menggunakan fitur Canvas di browser untuk unduh PNG.
+  Kalau browser memblokir ekspor saat dibuka via file://,
+  jalankan lewat ekstensi Live Server di VS Code (klik kanan
+  index.html -> Open with Live Server), lalu coba lagi.
+- Animasi ringan otomatis dikurangi bagi pengguna dengan opsi
+  "reduce motion" aktif.
+- Tidak perlu instal paket npm dan tidak perlu koneksi internet.
+
+DIBUAT BUAT SERU-SERUAN, BUKAN PRESENTASI PROPOSAL.

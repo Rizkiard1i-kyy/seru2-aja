@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#f6f0e7"
+    >
+
+    <meta
+        name="description"
+        content="Galeri 143 foto dan 51 video BISING! CLUB."
+    >
+
+    <title>Album | Study Group's</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="aset/css/style.css">
+
+    <!-- JAVASCRIPT -->
+    <script src="aset/js/data.js" defer></script>
+    <script src="aset/js/app.js" defer></script>
+</head>
+
+<body data-page="album">
+
+    <!-- BACKGROUND -->
+
+    <div class="noise" aria-hidden="true"></div>
+
+    <!-- =====================================
+         NAVBAR
+    ===================================== -->
+
+    <header class="topbar">
+
+        <a
+            class="logo"
+            href="index.html"
+            aria-label="Bising Club, beranda"
+        >
+            <span class="logo-burst">+</span>
+            Study Group's<span class="logo-punct">!</span>
+            <small>eaaaaaa</small>
+        </a>
+
+        <nav class="topnav" aria-label="Menu utama">
+
+            <a
+                href="index.html"
+                class="navlink"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>START</span>
+            </a>
+
+            <a
+                href="album.html"
+                class="navlink active"
+                aria-current="page"
+            >
+                <span class="nav-icon">▦</span>
+                <span>ALBUM</span>
+            </a>
+
+            <a
+                href="booth.html"
+                class="navlink"
+            >
+                <span class="nav-icon">▣</span>
+                <span>BOOTH</span>
+            </a>
+
+            <a
+                href="arcade.html"
+                class="navlink"
+            >
+                <span class="nav-icon">✳</span>
+                <span>ARCADE</span>
+            </a>
+
+            <a
+                href="wall.html"
+                class="navlink"
+            >
+                <span class="nav-icon">✎</span>
+                <span>WALL</span>
+            </a>
+
+        </nav>
+
+        <div class="live-tag">
+            <span class="live-dot"></span>
+            STILL LOUD
+        </div>
+
+    </header>
+
+    <!-- =====================================
+         ALBUM CONTENT
+    ===================================== -->
+
+    <main id="main">
+
+        <section class="album-shell">
+
+            <!-- ALBUM HEADER -->
+
+            <div class="section-head album-head">
+
+                <div>
+                    
+
+                    <h1>
+                        FOTO<em> RANDOM</em>
+                        <span class="head-star">✷</span>
+                    </h1>
+                </div>
+
+                <div class="album-count">
+
+                    <span id="photoCount"></span>
+
+                
+
+                </div>
+
+            </div>
+
+            <!-- =================================
+                 FILTER DAN TOOLS
+            ================================= -->
+
+            <div class="album-toolbar">
+
+                <div
+                    class="filter-tabs"
+                    id="albumFilters"
+                >
+
+                    <button
+                        type="button"
+                        class="chip active"
+                        data-filter="all"
+                    >
+                        SEMUA
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chip"
+                        data-filter="foto"
+                    >
+                        FOTO
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chip"
+                        data-filter="video"
+                    >
+                        VIDEO
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chip"
+                        data-filter="rame"
+                    >
+                        RAME
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chip"
+                        data-filter="jalan"
+                    >
+                        JALAN
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chip"
+                        data-filter="acara"
+                    >
+                        ACARA
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chip"
+                        data-filter="fav"
+                    >
+                        ♥ FAV
+                    </button>
+
+                </div>
+
+                <!-- ALBUM ACTIONS -->
+
+                <div class="album-tools">
+
+                    <button
+                        type="button"
+                        class="tool-btn"
+                        id="albumShuffle"
+                        title="Acak media"
+                    >
+                        ↻ <span>ACAK</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="tool-btn"
+                        id="albumLayout"
+                        title="Ganti susunan media"
+                    >
+                        ▤ <span>LAYOUT</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- =================================
+                 PHOTO AND VIDEO GRID
+            ================================= -->
+
+            <div
+                class="album-grid"
+                id="albumGrid"
+            ></div>
+
+            <!-- EMPTY STATE -->
+
+            <div
+                class="empty-gallery"
+                id="emptyGallery"
+                hidden
+            >
+                Belum ada media di kategori ini :')
+            </div>
+
+            <!-- LOAD MORE -->
+
+            <div class="album-load-more">
+
+                <button
+                    type="button"
+                    class="load-more-btn"
+                    id="albumLoadMore"
+                    hidden
+                >
+                    + MUAT LAGI
+                </button>
+
+            </div>
+
+            <!-- ALBUM FOOTER -->
+
+            <div class="album-footer">
+
+                <span>END OF FOLDER_</span>
+
+                <button
+                    type="button"
+                    id="topAlbum"
+                >
+                    ↑ BALIK ATAS
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================
+         MOBILE NAVIGATION
+    ===================================== -->
+
+    <nav
+        class="mobile-nav"
+        aria-label="Menu bawah"
+    >
+
+        <a
+            href="index.html"
+            class="navlink"
+        >
+            <span class="nav-icon">⌂</span>
+            <span>START</span>
+        </a>
+
+        <a
+            href="album.html"
+            class="navlink active"
+            aria-current="page"
+        >
+            <span class="nav-icon">▦</span>
+            <span>ALBUM</span>
+        </a>
+
+        <a
+            href="booth.html"
+            class="navlink"
+        >
+            <span class="nav-icon">▣</span>
+            <span>BOOTH</span>
+        </a>
+
+        <a
+            href="arcade.html"
+            class="navlink"
+        >
+            <span class="nav-icon">✳</span>
+            <span>ARCADE</span>
+        </a>
+
+        <a
+            href="wall.html"
+            class="navlink"
+        >
+            <span class="nav-icon">✎</span>
+            <span>WALL</span>
+        </a>
+
+    </nav>
+
+    <!-- =====================================
+         TOAST
+    ===================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <!-- =====================================
+         MEDIA VIEWER
+    ===================================== -->
+
+    <div
+        id="photoViewer"
+        class="viewer"
+        aria-hidden="true"
+    >
+
+        <!-- BACKDROP -->
+
+        <div
+            class="viewer-backdrop"
+            data-close="viewer"
+        ></div>
+
+        <!-- VIEWER WINDOW -->
+
+        <div
+            class="viewer-shell"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Lihat media"
+        >
+
+            <!-- VIEWER HEADER -->
+
+            <div class="viewer-top">
+
+                <span id="viewerTag">
+                
+                </span>
+
+                <div class="viewer-actions">
+
+                    <button
+                        type="button"
+                        id="viewerHeart"
+                        aria-label="Tambahkan favorit"
+                    >
+                        ♡
+                    </button>
+
+                    <a
+                        id="viewerDownload"
+                        href="#"
+                        download
+                        aria-label="Unduh media"
+                    >
+                        ↓
+                    </a>
+
+                    <button
+                        type="button"
+                        data-close="viewer"
+                        aria-label="Tutup viewer"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PHOTO OR VIDEO -->
+
+            <div class="viewer-photo media-viewer-content">
+
+                <button
+                    type="button"
+                    class="viewer-arrow prev"
+                    id="viewerPrev"
+                    aria-label="Media sebelumnya"
+                >
+                    ‹
+                </button>
+
+                <!-- FOTO -->
+
+                <img
+                    id="viewerImage"
+                    alt="Foto BISING CLUB"
+                    hidden
+                >
+
+                <!-- VIDEO -->
+
+                <video
+                    id="viewerVideo"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    hidden
+                ></video>
+
+                <button
+                    type="button"
+                    class="viewer-arrow next"
+                    id="viewerNext"
+                    aria-label="Media selanjutnya"
+                >
+                    ›
+                </button>
+
+            </div>
+
+            <!-- VIEWER FOOTER -->
+
+            <div class="viewer-bottom">
+
+                <span id="viewerLabel"></span>
+
+                <span>← → untuk geser</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         CONFETTI
+    ===================================== -->
+
+    <div
+        class="confetti-layer"
+        id="confettiLayer"
+        aria-hidden="true"
+    ></div>
+
+</body>
+
+</html>

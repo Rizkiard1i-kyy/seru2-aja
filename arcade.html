@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#f6f0e7"
+    >
+
+    <meta
+        name="description"
+        content="BISING! CLUB — album foto, photobooth, arcade, dan papan absurd satu geng."
+    >
+
+    <title>Arcade | Study Group's</title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="aset/css/style.css"
+    >
+
+    <!-- JAVASCRIPT -->
+    <script src="aset/js/data.js" defer></script>
+    <script src="aset/js/app.js" defer></script>
+</head>
+
+<body data-page="arcade">
+
+    <!-- =====================================
+         BACKGROUND NOISE
+    ===================================== -->
+
+    <div
+        class="noise"
+        aria-hidden="true"
+    ></div>
+
+    <!-- =====================================
+         HEADER / NAVBAR
+    ===================================== -->
+
+    <header class="topbar">
+
+        <!-- LOGO -->
+        <a
+            class="logo"
+            href="index.html"
+            aria-label="Bising Club, beranda"
+        >
+            <span class="logo-burst">+</span>
+
+           Study Group's<span class="logo-punct">!</span>
+
+            <small>eaaaaaaa</small>
+        </a>
+
+        <!-- DESKTOP NAVIGATION -->
+        <nav
+            class="topnav"
+            aria-label="Menu utama"
+        >
+
+            <a
+                href="index.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>START</span>
+            </a>
+
+            <a
+                href="album.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">▦</span>
+                <span>ALBUM</span>
+            </a>
+
+            <a
+                href="booth.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">▣</span>
+                <span>BOOTH</span>
+            </a>
+
+            <a
+                href="arcade.html"
+                class="navlink active"
+                aria-current="page"
+            >
+                <span class="nav-icon">✳</span>
+                <span>ARCADE</span>
+            </a>
+
+            <a
+                href="wall.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">✎</span>
+                <span>WALL</span>
+            </a>
+
+        </nav>
+
+        <!-- LIVE STATUS -->
+        <div class="live-tag">
+            <span class="live-dot"></span>
+            STILL LOUD
+        </div>
+
+    </header>
+
+    <!-- =====================================
+         MAIN CONTENT
+    ===================================== -->
+
+    <main id="main">
+
+        <section class="arcade-shell">
+
+            <!-- =================================
+                 ARCADE HEADER
+            ================================= -->
+
+            <div class="arcade-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        INSERT COIN? NGGAK USAH.
+                    </div>
+
+                    <h1>
+                        PLAY<span>GROUND</span><i>★</i>
+                    </h1>
+
+                </div>
+
+                <div class="arcade-score-top">
+                    ✳ <span>NGGAK ADA HADIAH</span>
+                </div>
+
+            </div>
+
+            <!-- =================================
+                 ARCADE GAMES LAYOUT
+            ================================= -->
+
+            <div class="arcade-layout">
+
+                <!-- =============================
+                     GAME 01 - MEMORY GAME
+                ============================= -->
+
+                <article class="arcade-panel memory-panel">
+
+                    <!-- GAME HEADER -->
+                    <div class="game-head">
+
+                        <div>
+                            <span>GAME_01</span>
+                            <h2>coba aja</h2>
+                        </div>
+
+                        <!-- GAME SCORE -->
+                        <div class="game-score">
+
+                            <strong id="memoryMoves">
+                                0
+                            </strong>
+
+                            <small>
+                                MOVES
+                            </small>
+
+                            <strong id="memoryTime">
+                                00:00
+                            </strong>
+
+                            <small>
+                                TIME
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- MEMORY CARDS -->
+                    <!--
+                        Kartu dibuat otomatis oleh
+                        fungsi initMemory() di app.js.
+                    -->
+
+                    <div
+                        id="memoryGrid"
+                        class="memory-grid"
+                        aria-label="Game cocokkan kartu foto"
+                    ></div>
+
+                    <!-- GAME FOOTER -->
+                    <div class="game-bottom">
+
+                        <span id="memoryMessage">
+                            Cari 6 pasangan. Jangan ngasal.
+                        </span>
+
+                        <button
+                            type="button"
+                            id="memoryReset"
+                        >
+                            ↻ RESET
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <!-- =============================
+                     GAME 02 - PHOTO ROULETTE
+                ============================= -->
+
+                <article class="arcade-panel roulette-panel">
+
+                    <!-- GAME HEADER -->
+                    <div class="game-head">
+
+                        <div>
+                            <span>GAME_02</span>
+                            <h2>siapa nyakkkk</h2>
+                        </div>
+
+                        <span class="tiny-sticker">
+                            RANDOM<br>
+                            IZER
+                        </span>
+
+                    </div>
+
+                    <!-- =========================
+                         ROULETTE PHOTO
+                    ========================= -->
+
+                    <div class="roulette-window">
+
+                        <!-- ROTATING BACKGROUND -->
+                        <div class="roulette-halo"></div>
+
+                        <!-- PHOTO CONTAINER -->
+                        <div
+                            class="roulette-photo"
+                            id="roulettePhoto"
+                        >
+
+                            <img
+                                src="aset/image/foto-02.jpg"
+                                alt="Foto acak untuk roulette"
+                                id="rouletteImg"
+                            >
+
+                        </div>
+
+                        <!-- DECORATION -->
+                        <div class="roulette-shine">
+                            ✦
+                        </div>
+
+                    </div>
+
+                    <!-- =========================
+                         ROULETTE RESULT
+                    ========================= -->
+
+                    <p
+                        id="rouletteName"
+                        class="roulette-result"
+                    >
+                        KLIK ↓
+                    </p>
+
+                    <!-- SPIN BUTTON -->
+                    <button
+                        type="button"
+                        class="roulette-button"
+                        id="rouletteSpin"
+                    >
+                        ↻ PUTAR LAGI
+                    </button>
+
+                    <!-- ROULETTE FOOTER -->
+                    <div class="roulette-bottom">
+                        totally scientific. trust.
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================
+         MOBILE NAVIGATION
+    ===================================== -->
+
+    <nav
+        class="mobile-nav"
+        aria-label="Menu bawah"
+    >
+
+        <a
+            href="index.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">⌂</span>
+            <span>START</span>
+        </a>
+
+        <a
+            href="album.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">▦</span>
+            <span>ALBUM</span>
+        </a>
+
+        <a
+            href="booth.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">▣</span>
+            <span>BOOTH</span>
+        </a>
+
+        <a
+            href="arcade.html"
+            class="navlink active"
+            aria-current="page"
+        >
+            <span class="nav-icon">✳</span>
+            <span>ARCADE</span>
+        </a>
+
+        <a
+            href="wall.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">✎</span>
+            <span>WALL</span>
+        </a>
+
+    </nav>
+
+    <!-- =====================================
+         TOAST NOTIFICATION
+    ===================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <!-- =====================================
+         PHOTO VIEWER / MODAL
+    ===================================== -->
+
+    <div
+        id="photoViewer"
+        class="viewer"
+        aria-hidden="true"
+    >
+
+        <!-- DARK BACKDROP -->
+        <div
+            class="viewer-backdrop"
+            data-close="viewer"
+        ></div>
+
+        <!-- VIEWER CONTAINER -->
+        <div
+            class="viewer-shell"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Lihat foto"
+        >
+
+            <!-- VIEWER HEADER -->
+            <div class="viewer-top">
+
+                <span id="viewerTag">
+                    FILE 01/17
+                </span>
+
+                <!-- VIEWER ACTIONS -->
+                <div class="viewer-actions">
+
+                    <!-- FAVORITE BUTTON -->
+                    <button
+                        type="button"
+                        id="viewerHeart"
+                        aria-label="Tandai foto favorit"
+                    >
+                        ♡
+                    </button>
+
+                    <!-- DOWNLOAD BUTTON -->
+                    <a
+                        id="viewerDownload"
+                        href="#"
+                        download
+                        aria-label="Unduh foto"
+                    >
+                        ↓
+                    </a>
+
+                    <!-- CLOSE BUTTON -->
+                    <button
+                        type="button"
+                        data-close="viewer"
+                        aria-label="Tutup foto"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- =================================
+                 VIEWER PHOTO
+            ================================= -->
+
+            <div class="viewer-photo">
+
+                <!-- PREVIOUS PHOTO -->
+                <button
+                    type="button"
+                    class="viewer-arrow prev"
+                    id="viewerPrev"
+                    aria-label="Foto sebelumnya"
+                >
+                    ‹
+                </button>
+
+                <!-- MAIN PHOTO -->
+                <img
+                    id="viewerImage"
+                    alt="Foto geng"
+                >
+
+                <!-- NEXT PHOTO -->
+                <button
+                    type="button"
+                    class="viewer-arrow next"
+                    id="viewerNext"
+                    aria-label="Foto berikutnya"
+                >
+                    ›
+                </button>
+
+            </div>
+
+            <!-- VIEWER FOOTER -->
+            <div class="viewer-bottom">
+
+                <span id="viewerLabel"></span>
+
+                <span>
+                    ← → untuk geser
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         CONFETTI ANIMATION
+    ===================================== -->
+
+    <div
+        class="confetti-layer"
+        id="confettiLayer"
+        aria-hidden="true"
+    ></div>
+
+</body>
+
+</html>

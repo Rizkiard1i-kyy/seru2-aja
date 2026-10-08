@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#f6f0e7"
+    >
+
+    <meta
+        name="description"
+        content="BISING! CLUB — album foto, photobooth, arcade, dan papan absurd satu geng."
+    >
+
+    <title>Photobooth | Study Group's</title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="aset/css/style.css"
+    >
+
+    <!-- JAVASCRIPT -->
+    <script src="aset/js/data.js" defer></script>
+    <script src="aset/js/app.js" defer></script>
+</head>
+
+<body data-page="booth">
+
+    <!-- =====================================
+         BACKGROUND NOISE
+    ===================================== -->
+
+    <div
+        class="noise"
+        aria-hidden="true"
+    ></div>
+
+    <!-- =====================================
+         HEADER / NAVBAR
+    ===================================== -->
+
+    <header class="topbar">
+
+        <!-- LOGO -->
+
+        <a
+            class="logo"
+            href="index.html"
+            aria-label="Bising Club, beranda"
+        >
+            <span class="logo-burst">+</span>
+
+            Study Group's<span class="logo-punct">!</span>
+
+            <small>CLUB</small>
+        </a>
+
+        <!-- DESKTOP NAVIGATION -->
+
+        <nav
+            class="topnav"
+            aria-label="Menu utama"
+        >
+
+            <a
+                href="index.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>START</span>
+            </a>
+
+            <a
+                href="album.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">▦</span>
+                <span>ALBUM</span>
+            </a>
+
+            <a
+                href="booth.html"
+                class="navlink active"
+                aria-current="page"
+            >
+                <span class="nav-icon">▣</span>
+                <span>BOOTH</span>
+            </a>
+
+            <a
+                href="arcade.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">✳</span>
+                <span>ARCADE</span>
+            </a>
+
+            <a
+                href="wall.html"
+                class="navlink"
+                aria-current="false"
+            >
+                <span class="nav-icon">✎</span>
+                <span>WALL</span>
+            </a>
+
+        </nav>
+
+        <!-- LIVE STATUS -->
+
+        <div class="live-tag">
+            <span class="live-dot"></span>
+            STILL LOUD
+        </div>
+
+    </header>
+
+    <!-- =====================================
+         MAIN CONTENT
+    ===================================== -->
+
+    <main id="main">
+
+        <section class="booth-shell">
+
+            <!-- =================================
+                 BACKGROUND DECORATIONS
+            ================================= -->
+
+            <div class="booth-ambient ambient-a">
+                ✽
+            </div>
+
+            <div class="booth-ambient ambient-b">
+                ✳
+            </div>
+
+            <!-- =================================
+                 PHOTOBOOTH HEADER
+            ================================= -->
+
+            <div class="booth-head">
+
+                <div class="eyebrow">
+          
+                </div>
+
+                <h1>
+                    PHOTO<span>BOOTH</span><sup>✹</sup>
+                </h1>
+
+                <p>
+                 
+                </p>
+
+            </div>
+
+            <!-- =================================
+                 PHOTOBOOTH LAYOUT
+            ================================= -->
+
+            <div class="booth-layout">
+
+                <!-- =============================
+                     PHOTOBOOTH SETTINGS
+                ============================= -->
+
+                <div class="booth-config">
+
+                    <!-- =========================
+                         01 / STRIP COLOR
+                    ========================= -->
+
+                    <div class="config-label">
+                        01 / WARNA
+                    </div>
+
+                    <div
+                        class="swatch-row"
+                        id="boothSwatches"
+                    >
+
+                        <!-- LIME -->
+
+                        <button
+                            type="button"
+                            class="swatch active"
+                            data-swatch="lime"
+                            aria-label="Warna lime"
+                            style="--swatch: #d3ff50;"
+                        >
+                            ✓
+                        </button>
+
+                        <!-- PINK -->
+
+                        <button
+                            type="button"
+                            class="swatch"
+                            data-swatch="pink"
+                            aria-label="Warna pink"
+                            style="--swatch: #ff93bb;"
+                        ></button>
+
+                        <!-- BLUE -->
+
+                        <button
+                            type="button"
+                            class="swatch"
+                            data-swatch="blue"
+                            aria-label="Warna biru"
+                            style="--swatch: #91c4ff;"
+                        ></button>
+
+                        <!-- ORANGE -->
+
+                        <button
+                            type="button"
+                            class="swatch"
+                            data-swatch="orange"
+                            aria-label="Warna oranye"
+                            style="--swatch: #ffac6b;"
+                        ></button>
+
+                        <!-- WHITE -->
+
+                        <button
+                            type="button"
+                            class="swatch"
+                            data-swatch="white"
+                            aria-label="Warna putih"
+                            style="--swatch: #fffaf0;"
+                        ></button>
+
+                    </div>
+
+                    <!-- =========================
+                         02 / PHOTO FILTER
+                    ========================= -->
+
+                    <div class="config-label">
+                        02 / FILTER
+                    </div>
+
+                    <div
+                        class="pill-select"
+                        id="boothFilters"
+                    >
+
+                        <button
+                            type="button"
+                            class="active"
+                            data-look="normal"
+                        >
+                            ASLI
+                        </button>
+
+                        <button
+                            type="button"
+                            data-look="bw"
+                        >
+                            B&W
+                        </button>
+
+                        <button
+                            type="button"
+                            data-look="retro"
+                        >
+                            JADUL
+                        </button>
+
+                        <button
+                            type="button"
+                            data-look="pop"
+                        >
+                            POP
+                        </button>
+
+                    </div>
+
+                    <!-- =========================
+                         03 / CUSTOM CAPTION
+                    ========================= -->
+
+                    <label
+                        class="config-label label-input"
+                        for="boothCaption"
+                    >
+                        03 / TULISAN
+                    </label>
+
+                    <input
+                        id="boothCaption"
+                        type="text"
+                        maxlength="22"
+                        placeholder="GENG GAK JELAS"
+                        value="GENG GAK JELAS"
+                        autocomplete="off"
+                    >
+
+                    <!-- PHOTOBOOTH HINT -->
+
+                    <div class="booth-hint">
+
+                        <span class="sparkle">
+                            ✳
+                        </span>
+
+                        Klik salah satu foto buat ganti sendiri.
+
+                    </div>
+
+                    <!-- =========================
+                         PHOTOBOOTH BUTTONS
+                    ========================= -->
+
+                    <!-- SHUFFLE PHOTO -->
+
+                    <button
+                        type="button"
+                        class="booth-action primary"
+                        id="boothShuffle"
+                    >
+                        ↻ KOCOK LAGI
+                    </button>
+
+                    <!-- SAVE AS PNG -->
+
+                    <button
+                        type="button"
+                        class="booth-action secondary"
+                        id="boothSave"
+                    >
+                        ↓ SIMPAN PNG
+                    </button>
+
+                    <!-- STATUS MESSAGE -->
+
+                    <div
+                        id="boothStatus"
+                        class="booth-status"
+                        role="status"
+                    ></div>
+
+                </div>
+
+                <!-- =============================
+                     PHOTOBOOTH PREVIEW
+                ============================= -->
+
+                <div class="booth-preview-area">
+
+                    <!-- PREVIEW LABEL -->
+
+                    <span class="preview-label">
+                        LIVE PREVIEW ↘
+                    </span>
+
+                    <!-- =========================
+                         PHOTO STRIP
+                    ========================= -->
+
+                    <div
+                        class="booth-strip strip-lime"
+                        id="boothStrip"
+                    >
+
+                        <!-- STRIP HEADER -->
+
+                        <div class="strip-hole">
+                            B!<span>club.</span>
+                        </div>
+
+                        <!-- =====================
+                             STRIP PHOTOS
+                        ===================== -->
+
+                        <!--
+                            Empat foto ditampilkan
+                            otomatis oleh app.js.
+
+                            Klik salah satu foto
+                            untuk menggantinya.
+                        -->
+
+                        <div
+                            class="strip-photos"
+                            id="stripPhotos"
+                        ></div>
+
+                        <!-- =====================
+                             STRIP FOOTER
+                        ===================== -->
+
+                        <div class="strip-end">
+
+                            <!-- CUSTOM CAPTION -->
+
+                            <strong id="stripCaption">
+                                AWOWKWKWK
+                            </strong>
+
+                            <!-- YEAR -->
+
+                            <span>
+                                ✴ Study Group's /
+
+                                <span id="stripDate">
+                                    2026
+                                </span>
+
+                                ✴
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PREVIEW DECORATION -->
+
+                    <span class="booth-arrow">
+                        ← CLICK!
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================
+         MOBILE NAVIGATION
+    ===================================== -->
+
+    <nav
+        class="mobile-nav"
+        aria-label="Menu bawah"
+    >
+
+        <a
+            href="index.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">⌂</span>
+            <span>START</span>
+        </a>
+
+        <a
+            href="album.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">▦</span>
+            <span>ALBUM</span>
+        </a>
+
+        <a
+            href="booth.html"
+            class="navlink active"
+            aria-current="page"
+        >
+            <span class="nav-icon">▣</span>
+            <span>BOOTH</span>
+        </a>
+
+        <a
+            href="arcade.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">✳</span>
+            <span>ARCADE</span>
+        </a>
+
+        <a
+            href="wall.html"
+            class="navlink"
+            aria-current="false"
+        >
+            <span class="nav-icon">✎</span>
+            <span>WALL</span>
+        </a>
+
+    </nav>
+
+    <!-- =====================================
+         TOAST NOTIFICATION
+    ===================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <!-- =====================================
+         PHOTO VIEWER / MODAL
+    ===================================== -->
+
+    <div
+        id="photoViewer"
+        class="viewer"
+        aria-hidden="true"
+    >
+
+        <!-- BACKDROP -->
+
+        <div
+            class="viewer-backdrop"
+            data-close="viewer"
+        ></div>
+
+        <!-- VIEWER CONTAINER -->
+
+        <div
+            class="viewer-shell"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Lihat foto"
+        >
+
+            <!-- VIEWER HEADER -->
+
+            <div class="viewer-top">
+
+                <span id="viewerTag">
+                    FILE 01/17
+                </span>
+
+                <!-- VIEWER ACTIONS -->
+
+                <div class="viewer-actions">
+
+                    <!-- FAVORITE -->
+
+                    <button
+                        type="button"
+                        id="viewerHeart"
+                        aria-label="Tandai foto favorit"
+                    >
+                        ♡
+                    </button>
+
+                    <!-- DOWNLOAD -->
+
+                    <a
+                        id="viewerDownload"
+                        href="#"
+                        download
+                        aria-label="Unduh foto"
+                    >
+                        ↓
+                    </a>
+
+                    <!-- CLOSE -->
+
+                    <button
+                        type="button"
+                        data-close="viewer"
+                        aria-label="Tutup foto"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- =================================
+                 VIEWER PHOTO
+            ================================= -->
+
+            <div class="viewer-photo">
+
+                <!-- PREVIOUS PHOTO -->
+
+                <button
+                    type="button"
+                    class="viewer-arrow prev"
+                    id="viewerPrev"
+                    aria-label="Foto sebelumnya"
+                >
+                    ‹
+                </button>
+
+                <!-- MAIN PHOTO -->
+
+                <img
+                    id="viewerImage"
+                    alt="Foto geng"
+                >
+
+                <!-- NEXT PHOTO -->
+
+                <button
+                    type="button"
+                    class="viewer-arrow next"
+                    id="viewerNext"
+                    aria-label="Foto berikutnya"
+                >
+                    ›
+                </button>
+
+            </div>
+
+            <!-- VIEWER FOOTER -->
+
+            <div class="viewer-bottom">
+
+                <span id="viewerLabel"></span>
+
+                <span>
+                    ← → untuk geser
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         CONFETTI ANIMATION
+    ===================================== -->
+
+    <div
+        class="confetti-layer"
+        id="confettiLayer"
+        aria-hidden="true"
+    ></div>
+
+</body>
+
+</html>
