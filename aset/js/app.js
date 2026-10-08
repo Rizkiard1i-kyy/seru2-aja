@@ -1475,7 +1475,7 @@
 
         $("#stripCaption").textContent = (
             $("#boothCaption").value.trim() ||
-            "GENG GAK JELAS"
+            ""
         ).toUpperCase();
 
         $("#stripDate").textContent =
@@ -1711,7 +1711,7 @@
             ctx.font =
                 "bold 64px Impact, Arial Black, sans-serif";
 
-            ctx.fillText("B!  CLUB.", 360, 85);
+            ctx.fillText("Study Group's.", 360, 85);
 
             const filters = {
                 normal: "none",
@@ -1760,7 +1760,7 @@
 
             const caption = (
                 $("#boothCaption").value.trim() ||
-                "GENG GAK JELAS"
+                "gua g tau mau kata2 apa"
             ).toUpperCase();
 
             ctx.fillText(
@@ -1773,7 +1773,7 @@
             ctx.font = "bold 23px monospace";
 
             ctx.fillText(
-                `✳ BISING CLUB / ${
+                `✳ Study Group's / ${
                     new Date().getFullYear()
                 } ✳`,
                 360,
